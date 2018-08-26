@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Educational Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+     <!--Font  Awesome icons-->
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+ 
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+ 
+     <link href="assets/css/custom.css" rel="stylesheet">
+     <!-- web fonts -->
+     <link href="assets/webfonts/stylesheet.css" rel="stylesheet">
+</head>
+<body ng-app="application" ng-controller="educationController">
+<div class="full-width">
+    <div class="full-width">
+        <div class="logo">
+            <img src="assets/images/pc-logo-login.svg">
+        </div>
+    </div>
+    <div class="main_container">
+        <div class="login_container">
+            <div class="back_btn"><a href="basic-info.html"><img src="assets/images/Back.svg"></a></div>
+            <div class="chain_steps">
+                <ul class="step_menu">
+                    <li class="completed"><i class="fa fa-check"></i></li>
+                    <li>2</li>
+                    <li class="bg">3</li>
+                    <li class="bg">4</li>
+                </ul>
+            </div>
+            <div class="full-width">
+                <form class="login_form" [formGroup]="educationalForm" (ngSubmit)="onSubmit()">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xl-12">
+                            <div class="col-md-6 col-sm-6 col-xl-6 float-left p-0">
+                                <p class="full-width page_title">Educational Details</p>
+                            </div>
+                            <!--<p class="sub_title">10th Grade</p>-->
+                            <div class="full-width mb-3" *ngFor="let educational of educationalDetails">
+                                <div class="full-width">
+                                    <div class="form-group">
+                                        <label>Institution Name</label>
+                                        <input class="form-control" formControlName="instname1" placeholder="Siv Matriculation Higher Secondary School, Sirummugai" ng-model="education.institute">
+                                    </div>
+                                </div>
+                                <div class="full-width">
+                                    <div class="col-md-4 col-sm-12 col-xl-4 float-left p-0 pr-2">
+                                        <div class="form-group">
+                                            <label>Join Year</label>
+                                            <input type="date" id="end" name="trip" class="form-control"
+                                                value="Join Date"
+                                                min="1901-01-01" max="2100-12-31" ng-model="education.join"/ >
+                                            <div *ngIf="submitted && f.joinyear.errors" class="invalid-feedback">
+                                                <div *ngIf="f.joinyear.errors.required">Join Year is required</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12 col-xl-4 float-left p-0 pr-2 pl-2">
+                                        <div class="form-group">
+                                            <label>Passed Out Year</label>
+                                            <input type="date" id="end" name="trip" class="form-control"
+                                                value="Expected Graduation"
+                                                min="1901-01-01" max="2100-12-31" ng-model="education.finish"/ >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 col-sm-12 col-xl-4 float-left p-0 pl-2">
+                                        <div class="form-group">
+                                            <label>Marks Secured</label>
+                                            <input class="form-control" formControlName="markssecured1" placeholder="85%" ng-model="education.marks">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="full-width">
+                                    <div class="form-group">
+                                        <label>Grade</label>
+                                        <select class="form-control" formControlName="grade" ng-model="education.grade">
+                                            <option>10th Grade</option>
+                                            <option>12th Grade</option>
+                                            <option>Under Graduation</option>
+                                            <option>Post Graduation</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="full-width">
+<!--                                     <div class="form-group">
+                                        <label class="full-width">Document Upload <i class="fa fa-exclamation-circle"></i></label>
+                                        <div class="full-width">
+                                            <image-upload></image-upload>
+                                        </div>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="full-width mt-3 mb-4">
+                                <a class="sign_in_btn next_btn" ng-click="addRecord()">Next</a>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="app.js"> </script>
+</html>

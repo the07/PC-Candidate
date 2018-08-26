@@ -1,0 +1,1818 @@
+/* You can add global styles to this file, and also import other style files */
+body,html {
+    font-size: 16pt;
+    color: #333;
+    font-family: muliregular;
+    padding: 0px;
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    right: 0;
+}
+.no-padding {
+    padding: 0px !important;
+}
+
+.container_custom {
+    display: block;
+    width: 89%;
+    margin: 0px auto;
+}
+
+.full-width {
+    float: left;
+    width: 100%;
+}
+.banner_bg {
+    float: left;
+    width: 100%;
+    position: relative;
+    height: 100vh;
+}
+.banner_bg img {
+    float: left;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.sign_up_box {
+    position: absolute;
+    right: 60px;
+    width: 570px;
+    background: #fff;
+    padding: 40px;
+    /*height: 350px;*/
+    top: 10%;
+    border-radius: 15px;
+}
+.signup_bg {
+    width: 620px;
+    position: absolute;
+    right: 36px;
+    background: #ffffff;
+    opacity: 0.4;
+    height: 535px;
+    top: 15%;
+    border-radius: 15px;
+}
+.sign_title {
+    color: #624DAA;
+    font-family: mulibold;
+    font-size: 30px;
+}
+.nav-tabs {
+    border-bottom: unset;
+}
+input:focus {
+    border: none !important;
+    outline: none !important;
+}
+ul {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+/* login component css */
+.main_container {
+    float: left;
+    background: #F8F8F8;
+    width: 100%;
+    padding: 10px 30px 20px 30px;
+}
+.login_container {
+    float: left;
+    width: 100%;
+    background: #ffffff;
+    /*border-right: 30px solid #F8F8F8;*/
+    /*border-left: 30px solid #F8F8F8;*/
+    /*border-bottom: 20px solid #F8F8F8;*/
+    /*border-top: 10px solid #F8F8F8;*/
+    position: relative;
+}
+.login_form {
+    width: 70%;
+    display: block;
+    margin: 0px auto;
+    padding: 30px;
+}
+.social_media {
+    width: 300px;
+    margin: 0px auto;
+    display: block;
+}
+.social_menu {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.social_menu li {
+    float: left;
+    width: 33.3%;
+}
+.social_menu li img {
+    width: 45px;
+    display: block;
+    margin: 0px auto;
+}
+.sign_in_btn {
+    /*width: 55%;*/
+    padding: 15px 60px;
+    text-align: center;
+    color: #fff !important;
+    background: #624DAA;
+    font-size:30px;
+    line-height: 18px;
+    border: 2px solid #624DAA;
+    font-weight: bold;
+    display: block;
+    margin: 0px auto;
+    border-radius: 50px;
+    cursor: pointer;
+}
+a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: unset !important;
+}
+.sign_in_btn:focus {
+    outline: none;
+}
+.sign_in_btn:hover {
+    color: #624DAA !important;
+    background: #fff;
+    border: 2px solid #624DAA;
+}
+.next_btn {
+    width: 30%;
+}
+.logo {
+    float: left;
+    width: 100%;
+    padding: 15px 28px;
+}
+.logo img {
+    float: left;
+    width: 180px;
+}
+.copy-icon {
+    width: 40px;
+}
+
+/* login component css end */
+/* Basic Info css */
+.gender_select {
+    width: 100%;
+    float: left;
+    border: 1px solid #ccc;
+    height: 47px;
+    border-radius: 4px;
+    color: #333333;
+    font-size: 20px;
+    line-height: 20px;
+    padding: 10px 0px;
+    text-align: center;
+    cursor: pointer;
+}
+.gender_select:hover {
+    background: #624DAA;
+    color: #ffffff;
+
+}
+.gender_select.active {
+    background: #624DAA;
+    color: #ffffff;
+}
+.upload_img {
+    float: left;
+    width: 100px;
+    margin-right: 20px;
+    margin-top: 10px;
+    height: 100px;
+}
+.upload_img img {
+    float: left;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+}
+
+.page_title {
+    font-size: 25pt;
+    line-height: 28px;
+    color: #333;
+    font-weight: 500;
+}
+.add_new {
+    float: right;
+    background: #624DAA;
+    color: #ffffff;
+    border-radius: 28px;
+    font-size: 12pt;
+    line-height: 16px;
+    border: 1px solid #624DAA;
+    cursor: pointer;
+    letter-spacing: 1px;
+    padding: 5px 10px;
+
+}
+.add_new:hover {
+    background: #ffffff;
+    color: #624DAA;
+    border: 1px solid #624DAA;
+}
+.add_new:focus {
+    outline: none;
+}
+.sub_title {
+    font-size: 18pt;
+    line-height: 18px;
+    color: #333;
+    font-weight: 500;
+}
+.form-group label {
+    color: #999999;
+}
+.search_results {
+    float: left;
+    width: 100%;
+}
+.search_results_btn {
+    padding: 10px 10px;
+    text-align: center;
+    color: #fff;
+    background: #624DAA;
+    font-size: 12pt;
+    line-height: 12px;
+    border: 2px solid #624DAA;
+    font-weight: normal;
+    display: block;
+    margin: 0px auto;
+    border-radius: 30px;
+    cursor: pointer;
+    float: left;
+    margin-right: 15px;
+}
+.search_results_btn:hover {
+    background: #ffffff;
+    color: #624DAA;
+}
+.search_results_btn:focus {
+    outline: none;
+}
+.suggested_skill_btn {
+    padding: 10px 10px;
+    text-align: center;
+    color: #624DAA;
+    font-size: 12pt;
+    background: #ffffff;
+    line-height: 12px;
+    border: 2px solid #624DAA;
+    font-weight: normal;
+    display: block;
+    margin: 0px auto;
+    border-radius: 30px;
+    cursor: pointer;
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 20px;
+}
+.suggested_skill_btn:hover {
+    background: #624DAA;
+    color: #ffffff;
+}
+button:focus {
+    outline: none;
+}
+.chain_steps {
+    float: left;
+    width: 100%;
+    padding: 20px 0px 0px 0px;
+}
+.step_menu {
+    width: 22%;
+    margin: 0px auto;
+}
+.step_menu li {
+    float: left;
+    width: 30px;
+    height: 30px;
+    border: 2px solid #624DAA;
+    font-size: 12pt;
+    line-height: 25px;
+    border-radius: 50%;
+    padding-left: 8px;
+    margin-right: 30px;
+}
+.step_menu li:last-child {
+    margin-right: 0px;
+}
+.bg {
+    background: #999999;
+    opacity: 0.4;
+    border: 2px solid #999999 !important;
+}
+.back_btn {
+    position: absolute;
+    top: 15px;
+    left: 80px;
+    cursor: pointer;
+}
+.back_btn img {
+    width: 30px;
+
+}
+.completed {
+    border: 2px solid green !important;
+    padding-left: 5px !important;
+    color: green;
+}
+.upload_file {
+    float: left;
+    width: 100px;
+    border: 2px solid #F8F8F8;
+    height: 100px;
+    margin-top: 10px;
+    border-radius: 4px;
+    padding: 20px 0px;
+    cursor: pointer;
+}
+.upload_file span {
+    text-align: center;
+    font-size: 16px;
+    line-height: 24px;
+    width: 100%;
+    float: left;
+}
+/*profile list css */
+.profile_list_block {
+    float: left;
+    width: 100%;
+    background: #F8F8F8;
+}
+.profile_menu {
+    float: left;
+    width: 100%;
+}
+.profile_menu li {
+    float: left;
+    width: auto;
+    padding: 20px 0px;
+    margin-right: 25px;
+    font-size: 13pt;
+    line-height: 15px;
+    color: #999999;
+    cursor: pointer;
+}
+.profile_menu li:last-child {
+    margin-right: 0px;
+}
+.profile_menu li img {
+    width: 20px;
+}
+.profile_menu li.active {
+    color: #624DAA;
+    border-bottom: 2px solid #624DAA;
+}
+.notification_icon {
+    width: 25px;
+    margin-right: 20px;
+}
+.notification_icon img {
+    width: 100%;
+}
+.profile_list_row {
+    float: left;
+    width: 100%;
+    padding: 20px 70px;
+}
+.profile_list_col {
+    background: #fff;
+    border-radius: 4px;
+    padding: 15px;
+    position: relative;
+    height: 230px;
+}
+.profile_social_menu {
+
+}
+.profile_social_menu li {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-right: 25px;
+}
+.profile_thumb {
+    float: left;
+    width: 120px;
+    height: 120px;
+    margin-right: 20px;
+}
+.profile_thumb img {
+    float: left;
+    width: 100%;
+}
+.profile_info {
+    float: left;
+    width: calc(100% - 140px);
+    margin-top: 15px;
+}
+.profile_name {
+    float: left;
+    width: 100%;
+    color: #333333;
+    font-size: 14pt;
+    line-height: 14px;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+.profile_text {
+    float: left;
+    width: 100%;
+    color: #999999;
+    font-size: 13pt;
+    line-height: 14px;
+    margin-bottom: 15px;
+    font-weight: normal;
+}
+.socila_col {
+    float: left;
+    width: 100%;
+}
+.profile_social_menu {
+
+}
+.profile_social_menu li {
+
+}
+.profile_edit {
+    position: absolute;
+    top: 2px;
+    right: 23px;
+}
+.profile_edit img {
+    width: 20px;
+    cursor: pointer;
+}
+.pub-key-info {
+    float: left;
+    width: 80%;
+    border: 1px solid #F8F8F8;
+    padding: 10px 10px 12px 10px;
+    font-size: 13pt;
+    line-height: 13px;
+    border-radius: 2px;
+}
+.qr-col {
+    width: 15%;
+}
+.pub-key-col {
+    width: 42%;
+}
+.profile_info_col {
+    width: 41%;
+    margin-right: 15px;
+}
+.pct-col {
+    float: left;
+    width: 50%;
+    margin-top: 20px;
+}
+.pct_title {
+    color: #333333;
+    font-size: 14px;
+    line-height: 14px;
+
+}
+.pct_title small {
+    color: #999999;
+    font-size: 10px;
+}
+.pct-info {
+    width: 100%;
+    margin-top: 10px;
+}
+.summary {
+    font-size: 13px;
+    line-height: 13px;
+    text-decoration: underline;
+    color: #999999;
+}
+.qr-icon {
+    width: 100px;
+    margin: 20px auto 0px;
+    display: block;
+}
+.qr-icon img {
+    float: left;
+    width: 100%;
+}
+.qr-info {
+    font-size: 14pt;
+    line-height: 15pt;
+    color: #999999;
+    margin-top: 10px;
+}
+.profile_dropdown {
+    float: right;
+}
+.profile_dropdown img {
+    width: 35px;
+}
+.profile_section {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.edu_section {
+    float: left;
+    width: 100%;
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+.edu_col {
+    float: left;
+    width: 100%;
+}
+.edu_col .full-width {
+    /*padding: 0px 15px;*/
+}
+.edu_title {
+    font-size: 20pt;
+    line-height: 18pt;
+    color: #333333;
+    float: left;
+    width: 100%;
+    font-weight: bold;
+}
+.grade_title {
+    float: left;
+    font-size: 16pt;
+    line-height: 16pt;
+    color: #333333;
+    font-weight: 600;
+}
+.verify_grade {
+    color: #ffffff;
+    border-radius: 14px;
+    background: #4AB847;
+    border: #4AB847;
+    font-size: 14px;
+    line-height: 17px;
+    padding: 3px 10px;
+    margin-left: 15px;
+}
+.inpregress {
+    background: #F7A400;
+}
+.thumb_nail {
+    float: left;
+    width: 90px;
+}
+.thumb_nail img {
+    float: left;
+    width: 100%;
+}
+.edu_info_col {
+    float: left;
+    width: 45%;
+}
+.edu_info {
+    float: left;
+    width: calc(100% - 90px);
+    padding-left: 25px;
+}
+.percentage_col {
+    float: left;
+    width: 23%;
+    text-align: center;
+}
+.percentage_row {
+    border-right: 2px solid #F8F8F8;
+    border-left: 2px solid #F8F8F8;
+    float: left;
+    width: 100%;
+    height: 80px;
+
+}
+.documents_col {
+    float: right;
+    width: 32%;
+    padding-left: 55px;
+}
+.docs_list {
+    float: left;
+    width: 100%;
+}
+.percentage {
+    font-size: 24pt;
+    line-height: 24px;
+    color: #F7A400;
+    font-weight: normal;
+}
+.view_docs {
+    float: left;
+    width: 80%;
+    box-shadow: 1px 0px 0px 2px #F8F8F8;
+    padding: 14px;
+    position: relative;
+    border-radius: 3px;
+    cursor: pointer;
+}
+.view_docs p {
+    font-size: 18px;
+    line-height: 24px;
+    color: #333333;
+    float: left;
+    width: calc(100% - 50px);
+}
+.view_docs img {
+    float: left;
+    width: 40px;
+    margin-right: 10px;
+}
+.marks_info {
+
+}
+.doc_action {
+    float: left;
+    width: 20%;
+}
+.image_list {
+    float: left;
+    width: 80%;
+}
+.image_list img {
+    float: left;
+    width: 80px;
+    margin-right: 10px;
+}
+.doc_action img {
+    width: 20px;
+    margin: 13px auto;
+    display: block;
+    cursor: pointer;
+}
+.documents_col .full-width {
+    top: -41px;
+}
+.designation {
+    margin-bottom: 10px;
+}
+.pro_info_col {
+    width: 68%;
+}
+.edit_skills {
+    width: 20px;
+    position: relative;
+    top: -4px;
+    cursor: pointer;
+}
+.skill_name_col {
+    float: left;
+    width: 35%;
+    margin-top: 10px;
+}
+.skill_name {
+    float: left;
+    width: 100%;
+    font-size: 24px;
+    line-height: 24px;
+    color: #333333;
+    font-weight: 500;
+    text-decoration: underline;
+}
+.skill_status_col {
+    float: left;
+    width: 30%;
+    margin-top: 15px;
+}
+.skill_rating_col {
+    float: left;
+    width: 9%;
+    margin-top: 10px;
+}
+.skill_profile {
+    float: right;
+    width: 26%;
+}
+.status_img {
+    float: left;
+}
+.status_img img {
+    float: left;
+    width: 60px;
+    margin-right: 10px;
+}
+.rated_profile {
+    float: left;
+}
+.rated_profile img {
+    float: left;
+    width: 50px;
+    margin-right: 15px;
+}
+.modal-dialog {
+    max-width: 1000px !important;
+}
+.delete_btn {
+    text-align: center;
+    color: #E74B24;
+    font-size: 20px;
+    line-height: 18px;
+    background: #ffffff;
+    border: 2px solid #E74B24;
+    font-weight: bold;
+    display: block;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 15px;
+    width: 200px;
+}
+.delete_btn:hover {
+    color: #ffffff;
+    border: 2px solid #E74B24;
+    background: #E74B24;
+}
+.save_btn {
+    text-align: center;
+    color: #624DAA;
+    font-size: 20px;
+    line-height: 18px;
+    background: #ffffff;
+    border: 2px solid #624DAA;
+    font-weight: bold;
+    display: block;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 15px;
+    width: 200px;
+}
+.save_btn:hover {
+    color: #ffffff;
+    border: 2px solid #624DAA;
+    background: #624DAA;
+}
+/*profile list list css end */
+/* wallet page css */
+.wallet_label {
+    font-size: 28px;
+    line-height: 28px;
+    color: #333333;
+}
+.wallet_list {
+    float: right;
+}
+.verifi_icon {
+    width: 30px;
+}
+.wallet_list span {
+    font-size: 18px;
+    line-height: 18px;
+    /*color: #999999;*/
+    cursor: pointer;
+}
+.wallet_list span.active {
+    /*color: #624DAA;*/
+}
+.wallet_block {
+    float: left;
+    width: 100%;
+    /*padding: 40px;*/
+}
+.wallet_method {
+
+}
+.redeem_col {
+    padding: 0px 30px 30px 30px;
+}
+.wallet_method .active {
+    color: #624DAA;
+}
+.wallet_method h3 {
+    font-size: 16pt;
+    font-weight: bold;
+    float: left;
+    color: #999999;
+    margin-right: 50px;
+    cursor: pointer;
+}
+.deposit_info_block {
+    float: left;
+    width: 100%;
+    margin-top: 25px;
+    position: relative;
+    margin-bottom: 25px;
+}
+.deposit_left {
+    float: left;
+    width: 70%;
+    height: 300px;
+    box-shadow: 1px 2px 3px 4px #F8F8F8;
+}
+.deposit_right {
+    float: right;
+    width: 26%;
+    height: 300px;
+    padding: 15px;
+    box-shadow: 1px 2px 3px 4px #F8F8F8;
+}
+.rup_block {
+    float: left;
+    width: 50%;
+    padding: 35px;
+    height: 100%;
+}
+.pct_block {
+    float: right;
+    width: 50%;
+    padding: 35px;
+    background: #F8F8F8;
+    height: 100%;
+}
+.stats_col {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.stats_label {
+    float: left;
+    color: #624DAA;
+    font-size: 16px;
+}
+.stats_value {
+    float: right;
+    color: #333333;
+    font-size: 16px;
+}
+.deposit_btn {
+    position: absolute;
+    bottom: 10%;
+    left: 27%;
+    padding: 5px 0px;
+    text-align: center;
+    color: #fff;
+    background: #624DAA;
+    font-size: 24px;
+    line-height: 24px;
+    border: 2px solid #624DAA;
+    font-weight: bold;
+    display: block;
+    width: 230px;
+    margin: 0px auto;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.deposit_btn:hover {
+    background: #ffffff;
+    color: #624DAA;
+    border: 2px solid #624DAA;
+}
+.trans_icon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #624DAA;
+    left: 33.5%;
+    top: 37%;
+    color: #ffffff;
+}
+.trans_icon span {
+    margin-left: 9px;
+    font-size: 20px;
+    line-height: 39px;
+}
+.currency_type {
+    float: left;
+    color: #624DAA;
+    font-size: 20px;
+    line-height: 20px;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.currency_value {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.sender {
+    float: left;
+    width: 100%;
+}
+.send_text {
+    font-size: 14px;
+    line-height: 14px;
+}
+.currency_input {
+    border-bottom: 1px solid #999999;
+    border-top: unset;
+    border-right: unset;
+    border-left: unset;
+}
+.wallet_balance_block {
+    width: 70%;
+    float: left;
+    height: 200px;
+    box-shadow: 1px 2px 3px 4px #F8F8F8;
+    padding: 30px;
+}
+.balance_info {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+.balance {
+    font-size: 38px;
+    line-height: 38px;
+    color: #624DAA;
+}
+.balance_info .float-left {
+    width: 50%;
+}
+.balance_info .float-right {
+    width: 50%;
+}
+.balance_info .float-right p {
+    color: #17a2b8;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.nav-tabs .nav-link.active {
+    border: unset;
+    color: #624DAA;
+}
+.nav-tabs .nav-link:hover {
+    border: unset;
+    /*color: #624DAA;*/
+}
+.nav-tabs .nav-link {
+    border: unset;
+    color: #999999;
+}
+.pass_header {
+    float: left;
+    width: 100%;
+    background: #F8F8F8;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 5px 0px;
+    font-size: 16px;
+}
+.transaction_details {
+    float: left;
+    width: 33.3%;
+}
+.pass_header span {
+    color: #999999;
+}
+.tockens_gained {
+    float: left;
+    width: 33.3%;
+}
+.pass_status {
+    float: left;
+    width: 33.3%;
+
+}
+.pass_body {
+    float: left;
+    width: 100%;
+}
+.transaction_thumb {
+    float: left;
+    width: 100px;
+    margin-top: 20px;
+}
+.txn_col span {
+    float: left;
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+}
+.transaction-info {
+    float: left;
+    width: calc(100% - 100px);
+}
+.tocken_value {
+    float: left;
+    width: 100%;
+    font-size: 18px;
+    line-height: 18px;
+    color: #999999;
+    text-align: center;
+}
+.status {
+    float: left;
+    width: 100%;
+    font-size: 18px;
+    line-height: 18px;
+    color: #999999;
+    text-align: center;
+
+}
+.txn_from {
+    float: left;
+    width: 100%;
+    font-size: 18px;
+    line-height: 18px;
+    color: #999999;
+    margin-bottom: 10px;
+}
+.txn_id {
+    float: left;
+    width: 100%;
+    font-size: 18px;
+    line-height: 18px;
+    color: #999999;
+    margin-bottom: 10px;
+}
+.reason {
+    float: left;
+    width: 100%;
+    font-size: 18px;
+    line-height: 18px;
+    color: #999999;
+    margin-bottom: 10px;
+}
+.txn_col {
+    float: left;
+    width: 100%;
+    padding: 20px 0px;
+    border-bottom: 2px solid #F8F8F8;
+}
+/* wallet page css end */
+
+/*organization profile css */
+.org_profile_block {
+    float: left;
+    width: 100%;
+}
+.org_banner {
+    float: left;
+    width: 100%;
+    /*height: 300px;*/
+    position: relative;
+}
+.org_banner img {
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+.org_overview {
+    position: absolute;
+    bottom: 10px;
+    right: 0px;
+    width: 80%;
+}
+.banner_gradient {
+    position: absolute;
+    left: 0px;
+    width: 100%;
+    bottom: 0px;
+}
+.org_name {
+    float: left;
+    font-size: 30px;
+    line-height: 26px;
+    color: #ffffff;
+}
+.org_status {
+
+}
+.org_subname {
+    font-size: 18px;
+    line-height: 18px;
+    color: #ffffff;
+}
+.org_loc {
+    font-size: 16px;
+    line-height: 16px;
+    color: #ffffff;
+}
+.org_emp {
+    float: left;
+    width: 45%;
+    margin-top: 23px;
+}
+.org_emp img {
+    float: left;
+    width: 35px;
+    height: 35px;
+    margin-right: 10px;
+}
+.org_info {
+    float: left;
+    width: 55%;
+}
+.view_all_emp span {
+    color: #ffffff;
+    text-decoration: underline;
+}
+.about_us_block {
+    float: left;
+    width: 100%;
+    background: #ffffff;
+    padding: 20px;
+}
+.about_left {
+    float: left;
+    width: 16%;
+}
+.about_right {
+    float: right;
+    width: 82%;
+}
+.about_right p {
+    font-size: 16px;
+    line-height: 28px;
+    color: #999999;
+}
+.experience {
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 5px;
+    color: #999999;
+}
+.location {
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 5px;
+    color: #999999;
+}
+.job_posted {
+    font-size: 14px;
+    line-height: 18px;
+    margin-bottom: 5px;
+    color: #999999;
+}
+.jobs_block {
+    float: left;
+    width: 100%;
+    background: #ffffff;
+    margin-top: 20px;
+    padding: 20px 0px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+.job_title {
+    float: left;
+    width: 100%;
+    font-size: 18px;
+    line-height: 18px;
+    margin-bottom: 5px;
+    color: #333333;
+    margin-top: 5px;
+}
+.post_title_col {
+    padding: 0px 35px 0px 20px;
+}
+.view_all {
+    color: #4F90F4;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.job_icon {
+    color: #999999;
+}
+.job_icon img {
+    width: 20px;
+}
+.verification_block {
+
+}
+.skills_block {
+    padding: 25px;
+}
+.verification_col {
+    float: left;
+    width: 16.6%;
+    font-size: 18px;
+    line-height: 18px;
+    text-transform: uppercase;
+    text-align: center;
+}
+.verification_col span {
+    float: left;
+    width: 100%;
+}
+.verification_header {
+    float: left;
+    width: 100%;
+    background: #F8F8F8;
+    padding: 10px 0px;
+}
+.verification_body {
+    float: left;
+    width: 100%;
+}
+.verif_img {
+    float: left;
+    width: 45px;
+    margin-top: 10px;
+}
+.verif_img img {
+
+}
+.verif_info {
+    float: left;
+    width: calc(100% - 80px);
+    padding-left: 10px;
+    font-size: 16px;
+    line-height: 16px;
+    color: #999999;
+}
+.verification_field {
+    font-size: 16px;
+    line-height: 16px;
+    color: #333333;
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+    text-transform: capitalize;
+}
+.emp_name {
+    font-size: 14px;
+    line-height: 16px;
+    color: #333333;
+    float: left;
+    width: 100%;
+    text-transform: capitalize;
+    text-align: left;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.verif_info small {
+    float: left;
+    width: 100%;
+    text-transform: capitalize;
+    text-align: left;
+}
+.verification_row {
+    float: left;
+    width: 100%;
+    padding: 15px 0px;
+    border-bottom: 2px solid #F8F8F8;
+    cursor: pointer;
+}
+.verify_col {
+    float: left;
+    width: 44%;
+    text-align: center;
+}
+.verify_col:first-child {
+    border-right: 1px solid #F8F8F8;
+}
+.verify_check {
+    color: #4AB847;
+    font-size: 26px;
+    cursor: pointer;
+}
+.verify_info {
+    font-size: 10px !important;
+    float: left;
+    width: 100%;
+    line-height: 10px;
+    color: #333333;
+    font-weight: normal;
+    margin-top: 4px;
+}
+.verify_close {
+    color: #E74B24;
+    font-size: 26px;
+    cursor: pointer;
+}
+.search_row {
+    float: left;
+    width: 100%;
+    border: 2px solid #F8F8F8;
+    border-radius: 30px;
+    height: 50px;
+    padding: 10px 10px;
+}
+.search_btn {
+    float: left;
+    padding: 4px 8px;
+    font-size: 14px;
+    line-height: 14px;
+    background: #F8F8F8;
+    border-radius: 20px;
+    border: 2px solid #F8F8F8;
+    margin-right: 20px;
+    width: 140px;
+    position: relative;
+    text-align: left;
+    cursor: pointer;
+}
+.search_row span {
+    position: absolute;
+    right: 10px;
+}
+.search_input {
+    float: left;
+    width: 400px;
+    margin-left: 30px;
+}
+.search_input input {
+    border: unset;
+    font-size: 16px;
+    line-height: 16px;
+    color: #999999;
+    float: right;
+    width: 92%;
+}
+.search_icon {
+    float: left;
+    width: 20px;
+    color: #F8F8F8;
+}
+.org_logo {
+    position: absolute;
+    width: 150px;
+    height: 150px;
+    background: #ffffff;
+    left: 92px;
+    bottom: -74px;
+    padding: 20px;
+    box-shadow: 1px 0px 0px 2px #F8F8F8;
+    border-radius: 4px;
+}
+.org_logo img {
+
+}
+/*organization profile end */
+/*payment page css */
+.payment_list_menu {
+    float: left;
+    width: 100%;
+}
+.payment_list_menu li {
+    float: left;
+    width: 20%;
+    text-align: center;
+    padding: 20px 0px;
+    cursor: pointer;
+}
+.payment_list_menu li:hover {
+    border-bottom: 5px solid #624DAA;
+}
+.payment_list_menu li.active {
+    border-bottom: 5px solid #624DAA;
+}
+.payment_list_menu li span {
+    width: 100%;
+    float: left;
+    text-align: center;
+    font-size: 14px;
+    line-height: 14px;
+    color: #999999;
+    margin-top: 4px;
+}
+.payment_list_menu li:first-child {
+    /*text-align: left;*/
+}
+.payment_list_menu li img {
+    width: 70px;
+}
+.payment_left {
+    float: left;
+    width: 70%;
+    padding: 30px 0px;
+}
+.payment_right {
+    float: right;
+    width: 30%;
+    background: #624DAA;
+    padding: 30px 50px;
+}
+.payment_form {
+    float: left;
+    width: 100%;
+}
+.payment_header {
+    padding: 0px 50px;
+    float: left;
+    width: 100%;
+    border-bottom: 2px solid #F8F8F8;
+}
+.payment_body {
+    float: left;
+    width: 100%;
+    padding: 30px 50px;
+}
+.payment_input {
+    float: left;
+    width: 100%;
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #F8F8F8;
+}
+.payment_input:focus {
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: #F8F8F8;
+    border-bottom: 2px solid #F8F8F8;
+}
+.wallet_icon {
+    float: left;
+    width: 100%;
+    text-align: center;
+    color: #ffffff;
+}
+.wallet_icon img {
+    width: 60px;
+}
+.wallet_icon p {
+    color: #ffffff;
+    font-size: 18px;
+    line-height: 32px;
+    margin-top: 20px;
+    font-weight: 600;
+
+}
+.total_amount {
+    float: left;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    margin-top: 120px;
+}
+.total_amount p {
+    font-size: 16px;
+    line-height: 16px;
+
+}
+.total_amount span {
+    float: left;
+    width: 100%;
+    font-size: 36px;
+    line-height: 30px;
+}
+.success_icon {
+    width: 150px;
+}
+.success_container {
+    width: 500px;
+    display: block;
+    margin: 0px auto;
+    padding: 120px 0px;
+}
+.success_container p {
+    color: #999999;
+}
+/* payment page css end */
+.upload_file .container {
+
+}
+.textOverflow {
+    margin-right: 10px;
+}
+.upload_file .row {
+    margin: 0px;
+}
+.upload_file .resetBtn {
+    position: relative;
+    top: -5px;
+    left: 10px;
+}
+.img-ul-upload {
+    background: #624DAA !important;
+}
+.img-ul-button {
+    box-shadow: unset !important;
+    font-size: 24px !important;
+    line-height: 24px !important;
+    border-radius: 5px;
+    text-transform: capitalize !important;
+}
+.img-ul-image {
+    background-size: 100px 100px !important;
+    width: 100px !important;
+    height: 100px !important;
+    margin: 0px 0px 20px 10px!important;
+    border-radius: 4px;
+}
+.img-ul {
+    background-color: unset !important;
+}
+.img-ul-clear {
+    display: none !important;
+}
+.img-ul-drag-box-msg {
+    display: none !important;
+}
+/* sign up css */
+.nav-tabs li a {
+    color: #ccc;
+}
+.nav-tabs li a.active {
+    color: #333;
+    font-size: 20px;
+    line-height: 20px;
+}
+.nav-tabs li {
+    font-size: 20px;
+    line-height: 20px;
+    margin-right: 20px;
+}
+.nav-tabs li a:hover {
+    text-decoration: unset;
+}
+.tab-content {
+    float: left;
+    width: 100%;
+}
+.form-group {
+    float: left;
+    width: 100%;
+}
+.form-group label {
+    float: left;
+    width: 100%;
+    padding: 0px 10px;
+    font-size: 14px;
+    color: #999999;
+    margin-bottom: 0px;
+}
+.custom-label {
+    font-size: 22px !important;
+    font-weight: bold;
+}
+.sign_up_btn {
+    width: 80%;
+    padding: 15px 10px;
+    text-align: center;
+    color: #fff;
+    background: #624DAA;
+    font-size: 24px;
+    line-height: 18px;
+    border: 2px solid #624DAA;
+    font-weight: bold;
+    display: block;
+    margin: 0px auto;
+    border-radius: 4px;
+    cursor: pointer;
+
+}
+.sign_up_btn:hover {
+    color: #624DAA;
+    background: #fff;
+    border: 2px solid #624DAA;
+}
+.sign_up_btn:focus {
+    outline: none;
+
+}
+.input_control {
+    float: left;
+    width: 100%;
+    border: unset !important;
+    border-bottom: 1px solid #ccc !important;
+    font-size: 22px !important;
+    line-height: 16px !important;
+    padding: 10px !important;
+    margin-bottom: 0px;
+    border-radius: 0px !important;
+    transition: unset !important;
+}
+.nav-tabs {
+    border-bottom: unset !important;
+}
+.pay_info {
+    font-size: 12px;
+    line-height: 18px;
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+.pay_info span {
+    cursor: pointer;
+    color: #F7A400;
+    text-decoration: underline;
+}
+.payment_col {
+    width: 90%;
+    display: block;
+    margin: 0px auto;
+}
+.payment_method {
+
+}
+.payment_method li {
+    float: left;
+    width: 33.3%;
+}
+.payment_method li span {
+    float: left;
+    width: 100%;
+    text-align: center;
+    margin-top: 5px;
+    font-size: 16px;
+}
+.icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    margin: 0px auto;
+    display: block;
+}
+.fab {
+    font-size: 25px;
+    line-height: 70px;
+    margin-left: 23px;
+}
+.pay_text {
+    font-size: 18px;
+    line-height: 18px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+.left_block {
+    position: absolute;
+    left: 109px;
+    top: 33%;
+}
+.title {
+    color: #fff;
+    font-size: 30px;
+}
+.pc-logo {
+    float: left;
+    width: 100%;
+}
+.pc-logo img {
+    width: 100px;
+}
+/*sign up page css end */
+/*oraganization profile css start*/
+.shadow {
+    box-shadow: 1px 2px 3px 4px #F8F8F8 !important;
+    height: 180px;
+    margin-bottom: 30px !important;
+}
+.jobs_block .col-xl-3 {
+    max-width: 22%;
+    margin: 0px 20px;
+}
+/* organization profile css end */
+@media (max-width: 767px) {
+    .sign_up_box {
+        width: 100%;
+        right: unset;
+        top: unset;
+        padding: 10px;
+    }
+    .profile_list_row {
+        padding: 10px;
+    }
+    .profile_info_col, .pub-key-col, .qr-col {
+        width: 100%;
+        margin: 0px 0px 10px 0px;
+    }
+    .edu_info_col, .percentage_col, .documents_col {
+        width: 100%;
+    }
+    .documents_col {
+        padding-left: 0px;
+    }
+    .documents_col .position-absolute {
+        position: unset !important;
+    }
+    .edu_section {
+        padding: 10px;
+    }
+    .thumb_nail {
+        margin: 0px auto;
+        float: unset;
+    }
+    .edu_info {
+        width: 100%;
+        padding-left: 0px;
+        text-align: center;
+    }
+    .percentage_row {
+        border: unset;
+        margin: 15px 0px;
+    }
+    .skill_name_col, .skill_status_col, .skill_rating_col, .skill_profile {
+        width: 100%;
+    }
+    .login_form {
+        width: 100%;
+        padding: 0px;
+    }
+    .main_container {
+        padding: 10px;
+    }
+    .login_container {
+        padding: 10px;
+    }
+    .step_menu {
+        width: 60%;
+    }
+    .back_btn {
+        top: 25px;
+        left: 14px;
+    }
+    .mobile_menu {
+        width: 50%;
+        margin: 0px auto;
+        display: block;
+        float: none;
+    }
+    .mobile_dropdown {
+        width: 28%;
+        margin: 0px auto;
+        display: block;
+    }
+    .mobile_logo img {
+        margin: 0px auto;
+        float: unset;
+        display: block;
+    }
+    .wallet_block .p-4 {
+        padding: 10px !important;
+    }
+    .wallet_list .nav-link {
+        padding: 5px;
+    }
+    .transaction_details, .tockens_gained, .pass_status {
+        width: 100%;
+    }
+    .redeem_col {
+        padding: 10px;
+    }
+    .deposit_left {
+        width: 100%;
+        height: auto;
+    }
+    .deposit_right {
+        width: 100%;
+    }
+    .rup_block {
+        width: 100%;
+    }
+    .pct_block {width: 100%}
+    .mob_trans_iocn {display: none}
+    .wallet_balance_block {width: 100%;padding: 10px;margin-top: 40px}
+    .balance_info .float-right p {
+        font-size: 16px;
+        margin-top: 4px;
+    }
+    .balance {font-size: 18px}
+    .deposit_btn {
+        bottom: -7%;
+        left: 18%;
+    }
+    .org_logo {
+        left: 17px;
+        bottom: -33px;
+        height: 65px;
+        width: 65px;
+    }
+    .jobs_block .col-xl-3 {
+        max-width: unset !important;
+        margin: unset !important;
+    }
+    .cmp_title {
+        font-size: 22px;
+    }
+    .jobs_block .p-3 {
+        padding: 10px !important;
+    }
+    .search_row {
+        border: unset;
+        height: unset;
+    }
+    .search_btn {
+        width: 100%;
+        margin-right: 0px;
+        margin-bottom: 10px;
+    }
+    .search_input {width: 100%;margin-left: 0px}
+    .search_row .add_new {
+        width: 100%;
+    }
+    .verification_col {width: 100%}
+    .verification_col span {margin-bottom: 10px}
+    .verification_col .verification_field {
+        text-align: left;
+        padding-left: 24px;
+    }
+    .skills_block {padding: 10px}
+    .skills_block .search_results_btn {
+        margin-bottom: 10px;
+    }
+    .about_left {display: none}
+    .about_us_block {
+        padding: 50px 10px 10px 10px;
+    }
+    .about_right {width: 100%}
+    .mobile_margin {
+        margin: 20px 0px;
+    }
+
+}

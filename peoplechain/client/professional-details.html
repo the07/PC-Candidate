@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Professional Details</title>
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <!-- web fonts -->
+    <link href="assets/webfonts/stylesheet.css" rel="stylesheet">
+    <!--Bootstrap 4 css-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <!--Font  Awesome icons-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+</head>
+<body>
+<div class="full-width">
+    <div class="full-width">
+        <div class="logo">
+            <img src="assets/images/pc-logo-login.svg">
+        </div>
+    </div>
+    <div class="main_container">
+        <div class="login_container">
+            <div class="back_btn" ><a href="educational-details.html"><img src="assets/images/Back.svg"></a></div>
+            <div class="chain_steps">
+                <ul class="step_menu">
+                    <li class="completed"><i class="fa fa-check"></i></li>
+                    <li class="completed"><i class="fa fa-check"></i></li>
+                    <li>3</li>
+                    <li class="bg">4</li>
+                </ul>
+            </div>
+            <div class="full-width">
+                <form class="login_form">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xl-12">
+                            <div class="col-md-6 col-sm-6 col-xl-6 float-left p-0">
+                                <p class="full-width page_title">Professional Details</p>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xl-6 float-left p-0">
+                                <button class="add_new"><i class="fa fa-plus"></i> Add New</button>
+                            </div>
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xl-12">
+                            <div class="form-group">
+                                <label>Title</label>
+                                <input class="form-control" required formControlName="title" placeholder="UX/UI Designer" [ngClass]="{ 'is-invalid': submitted && f.title.errors }">
+                                <div *ngIf="submitted && f.title.errors" class="invalid-feedback">
+                                    <div *ngIf="f.title.errors.required">Title is required</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xl-6 float-left p-0 pr-2">
+                                <div class="form-group">
+                                    <label>Company</label>
+                                    <input class="form-control" required formControlName="company" placeholder="Heptagon Technologies" [ngClass]="{ 'is-invalid': submitted && f.company.errors }">
+                                    <div *ngIf="submitted && f.company.errors" class="invalid-feedback">
+                                        <div *ngIf="f.company.errors.required">Company is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xl-6 float-left p-0 pl-2">
+                                <div class="form-group">
+                                    <label>Location</label>
+                                    <input class="form-control" required formControlName="location" placeholder="Coimbatore, India" [ngClass]="{ 'is-invalid': submitted && f.location.errors }">
+                                    <div *ngIf="submitted && f.location.errors" class="invalid-feedback">
+                                        <div *ngIf="f.location.errors.required">Location is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xl-6 float-left p-0 pr-2">
+                                <div class="form-group">
+                                    <label>From Year</label>
+                                    <select class="form-control" required formControlName="fromyear" [ngClass]="{ 'is-invalid': submitted && f.fromyear.errors }">
+                                        <option>2011</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.fromyear.errors" class="invalid-feedback">
+                                        <div *ngIf="f.fromyear.errors.required">From year is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-sm-6 col-xl-6 float-left p-0 pl-2">
+                                <div class="form-group">
+                                    <label>To Year</label>
+                                    <input class="form-control" formControlName="toyear" placeholder="2019" [ngClass]="{ 'is-invalid': submitted && f.toyear.errors }">
+                                    <div *ngIf="submitted && f.toyear.errors" class="invalid-feedback">
+                                        <div *ngIf="f.toyear.errors.required">To Year is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Description</label>
+                                <textarea class="form-control" formControlName="description" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+                                <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+                                    <div *ngIf="f.description.errors.required">Description is required</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="full-width">Document Upload <i class="fa fa-exclamation-circle"></i></label>
+                                <div class="full-width">
+                                    <image-upload></image-upload>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="full-width mt-3 mb-4">
+                        <a href="profile-list.html" class="sign_in_btn next_btn" type="submit">Next</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
