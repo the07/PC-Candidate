@@ -45,6 +45,10 @@
                             <div class="full-width mb-3" *ngFor="let educational of educationalDetails">
                                 <div class="full-width">
                                     <div class="form-group">
+                                        <label>Record Index</label>
+                                        <input class="form-control" placeholder="Record Index" ng-model="education.index">
+                                    </div>
+                                    <div class="form-group">
                                         <label>Institution Name</label>
                                         <input class="form-control" formControlName="instname1" placeholder="Siv Matriculation Higher Secondary School, Sirummugai" ng-model="education.institute">
                                     </div>

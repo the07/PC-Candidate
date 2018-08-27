@@ -217,9 +217,66 @@ app.controller('basicInfoController', function($scope, $window, appFactory) {
 
 app.controller('educationController', function($scope, $window, appFactory) {
 
+	$scope.keys = sessionStorage.getItem("keypair");
+
+	$scope.$watchCollection('keys', function(newVal, oldVal) {
+		console.log('Watch running')
+		if (newVal !== oldVal) {
+			console.log("KEY CONTROLLER");
+			$scope.keys = newVal;
+		}
+		console.log(newVal);
+	});
+	$scope.publicKey = JSON.parse($scope.keys).pubkey;
+	$scope.privateKey = JSON.parse($scope.keys).privkey;
+
 	$scope.addRecord = function() {
 		console.log($scope.education);
+		$scope.education.privateKey = $scope.privateKey;
+		$scope.education.publicKey = $scope.publicKey;	
+		$scope.education.type = 1;
 		appFactory.addRecord($scope.education, function(data) {
+			console.log(data);
+			if (data == 'SUCCESS') {
+				$window.location.href = './professional-details.html'
+			}
+		})
+	}
+})
+
+app.controller('professionalController', function($scope, $window, appFactory) {
+
+	$scope.keys = sessionStorage.getItem("keypair");
+
+	$scope.$watchCollection('keys', function(newVal, oldVal) {
+		console.log('Watch running')
+		if (newVal !== oldVal) {
+			console.log("KEY CONTROLLER");
+			$scope.keys = newVal;
+		}
+		console.log(newVal);
+	});
+	$scope.publicKey = JSON.parse($scope.keys).pubkey;
+	$scope.privateKey = JSON.parse($scope.keys).privkey;
+
+	$scope.addRecord = function() {
+		console.log($scope.professional);
+		$scope.professional.privateKey = $scope.privateKey;
+		$scope.professional.publicKey = $scope.publicKey;
+		$scope.professional.type = 2;	
+		appFactory.addRecord($scope.professional, function(data) {
+			console.log(data);
+			if (data == 'SUCCESS') {
+				$window.location.href = './profile-list.html'
+			}
+		});
+	}
+})
+
+app.controller('profileController', function($scope, $window, appFactory){
+	$scope.getProfile = function() {
+		console.log("Fetching profile");
+		appFactory.getUserData(function(data) {
 			console.log(data);
 		})
 	}
@@ -262,8 +319,15 @@ app.factory('appFactory', function($http){
 	}
 
 	factory.addRecord = function(data, callback) {
-		var record_data = sessionStorage.getItem("user") + "-" + JSON.stringify(data);
+		var record_data = sessionStorage.getItem("user") + "-" +  data.index + "-" + data.publicKey + "-" + data.privateKey + "-" + "1" + "-" + JSON.stringify(data);
 		$http.get('/add_record/'+record_data).success(function(output) {
+			callback(output);
+		})
+	}
+
+	factory.getUserData = function(callback) {
+		var user = sessionStorage.getItem("user");
+		$http.get('/get_user_data/'+user).success(function(output) {
 			callback(output);
 		})
 	}

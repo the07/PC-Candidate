@@ -1,1 +1,1 @@
-{"id":"1","data":{"public":"{\"pan\":\"sdfgsggfasgd\"}","private":"{\"aadhar\":\"4fsdfdsafdsf24324\",\"salary\":\"234243\"}"}}
+{"id":"1","data":"{\"index\":\"1\",\"institute\":\"hghghg\",\"join\":\"2018"}

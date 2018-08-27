@@ -22,6 +22,10 @@ module.exports = function(app) {
     peoplechain.add_record(req, res);
   })
 
+  app.get('/get_user_data/:user', function(req, res) {
+    peoplechain.get_user_data(req, res);
+  })
+
 /*   app.get('/get_all_record', function(req, res){
     peoplechain.get_all_record(req, res);
   });

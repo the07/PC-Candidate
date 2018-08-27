@@ -120,7 +120,7 @@ func (s *PeoplechainChaincode) Invoke(APIstub shim.ChaincodeStubInterface) sc.Re
 
 func (s *PeoplechainChaincode) createRecord(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 	if len(args) != 6 {
-		return shim.Error("Incorrect number of arguments, expecting 5")
+		return shim.Error("Incorrect number of arguments, expecting 6")
 	}
 
 	// arguments - key, userPublicKey, userPrivateKey, orgPublicKey, private_Date, public_Data
@@ -141,7 +141,7 @@ func (s *PeoplechainChaincode) createRecord(APIstub shim.ChaincodeStubInterface,
 	encrypted := box.Seal(nonce[:], msg, &nonce, &key2, &key1)
 	hash := hex.EncodeToString(encrypted[:])
 
-	var record = Record { User: args[1], Organization: args[3], Status: "PENDING",	Hash: hash, Data: args[5]  }
+	var record = Record { User: args[1], Organization: args[3], Status: "PENDING",	Hash: hash, Data: args[4]  }
 
 	recordAsBytes, _ := json.Marshal(record)
 
@@ -149,7 +149,7 @@ func (s *PeoplechainChaincode) createRecord(APIstub shim.ChaincodeStubInterface,
 	if err1 != nil {
 		return shim.Error(fmt.Sprintf("Failed to create record: %s", args[0]))
 	}
-	attributes := []string{"user1"}
+	attributes := []string{args[5]}
 	key, _ := APIstub.CreateCompositeKey("user", attributes)
 	userAsByte, _ := APIstub.GetState(key)
 
