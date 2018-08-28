@@ -48,13 +48,16 @@ type user struct {
 	PublicKey string `json:"public_key"`
 	Username string `json:"username"`
 	Password string `json:"password:`
-	RecordIndex []string `json:"record"`
+	RecordIndex []Record `json:"record"`
 	Profile string `json:"profile"`
 }
 
 type organization struct {
 	PublicKey string `json:"public_key"`
 	OrgName string `json:"organization_name"`
+	Password string `json:"password"`
+	RecordIndex []string `json:"records"`
+	Profile string `json:"profile"`
 }
 
 type Payment struct {
@@ -113,6 +116,8 @@ func (s *PeoplechainChaincode) Invoke(APIstub shim.ChaincodeStubInterface) sc.Re
 		return s.getRecordAccess(APIstub, args)
 	} else if function == "updateProfile" {
 		return s.updateProfile(APIstub, args)
+	} else if function == "updateOrganizationProfile" {
+		return s.updateOrganizationProfile(APIstub, args)
 	}
 
 	return shim.Error("Invalid function name")
@@ -160,7 +165,7 @@ func (s *PeoplechainChaincode) createRecord(APIstub shim.ChaincodeStubInterface,
 	user_1 := user{}
 	json.Unmarshal(userAsByte, &user_1)
 
-	user_1.RecordIndex = append(user_1.RecordIndex, args[0])
+	user_1.RecordIndex = append(user_1.RecordIndex, record)
 
 	userAsBytes, _ := json.Marshal(user_1)
 	err4 := APIstub.PutState(key, userAsBytes)
@@ -229,7 +234,7 @@ func (s *PeoplechainChaincode) queryAllRecord(APIstub shim.ChaincodeStubInterfac
 
 func (s *PeoplechainChaincode) createUser(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 	if len(args) != 2 {
-		return shim.Error("Incorrect number of arguments, expecting 3")
+		return shim.Error("Incorrect number of arguments, expecting 2")
 	}
 
 	reader := rand.Reader
@@ -242,9 +247,9 @@ func (s *PeoplechainChaincode) createUser(APIstub shim.ChaincodeStubInterface, a
 
 	username := args[0]
 	attributes := []string{username}
-	index_list := []string{}
+	index_list := []Record{}
 	key, _ := APIstub.CreateCompositeKey("user", attributes)
-	var user_object = user{PublicKey: userPublicKeyHex, Username: args[0], Password: args[1],  RecordIndex: index_list, Profile: "NULL"}
+	user_object := user{PublicKey: userPublicKeyHex, Username: args[0], Password: args[1],  RecordIndex: index_list, Profile: "NULL"}
 	userPrivateKeyHex := hex.EncodeToString(userPrivateKey[:])
 
 	userAsByte, _ := json.Marshal(user_object)
@@ -293,9 +298,39 @@ func (s *PeoplechainChaincode) updateProfile(APIstub shim.ChaincodeStubInterface
 	return shim.Success(nil)
 }
 
+func (s *PeoplechainChaincode) updateOrganizationProfile(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+	if len(args) != 2 {
+		return shim.Error("Incorrect number of arguments, expecting 2");
+	}
+
+	orgpublicKey := args[0]
+	attributes := []string{orgpublicKey}
+	key, _ := APIstub.CreateCompositeKey("Organization", attributes)
+
+	orgByte, _ := APIstub.GetState(key)
+
+	if orgByte == nil {
+		return shim.Error("Could not locate user")
+	}
+
+	user_1 := user{}
+	json.Unmarshal(orgByte, &user_1)
+
+	user_1.Profile = args[1]
+
+	userAsBytes, _ := json.Marshal(user_1)
+	err4 := APIstub.PutState(key, userAsBytes)
+
+	if err4 != nil {
+		return shim.Error("Failed to update User Profile")
+	}
+
+	return shim.Success(nil)
+}
+
 func (s *PeoplechainChaincode) createOrganization(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
-	if len(args) != 1 {
-		return shim.Error("Incorrect number of arguments, expecting 1")
+	if len(args) != 2 {
+		return shim.Error("Incorrect number of arguments, expecting 2")
 	}
 
 	reader := rand.Reader
@@ -306,19 +341,23 @@ func (s *PeoplechainChaincode) createOrganization(APIstub shim.ChaincodeStubInte
 
 	organizationPublicKeyHex := hex.EncodeToString(organizationPublicKey[:])
 	organizationPrivateKeyHex := hex.EncodeToString(organizationPrivateKey[:])
-	attributes := []string{args[0]}
-	key, _ := APIstub.CreateCompositeKey("organization", attributes)
-	var org_object = organization{PublicKey: organizationPublicKeyHex, OrgName: args[0]}
+	attributesOrg := []string{organizationPublicKeyHex}
+	index_list := []string{}
+	keyOrg, _ := APIstub.CreateCompositeKey("Organization", attributesOrg)
+	
+	org_object := organization{PublicKey: organizationPublicKeyHex, OrgName: args[0], Password: args[1], RecordIndex: index_list, Profile: "NULL"}
 
 	orgAsByte, _ := json.Marshal(org_object)
-	err3 := APIstub.PutState(key, orgAsByte)
+	err3 := APIstub.PutState(keyOrg, orgAsByte)
 	if err3 != nil {
-		return shim.Error(fmt.Sprintf("Failed to create organization: %s", key))
+		return shim.Error(fmt.Sprintf("Failed to create organization: %s", keyOrg))
 	}
 
 	key_pair := map[string]string{
 		"pubkey": organizationPublicKeyHex,
 		"privkey": organizationPrivateKeyHex,
+		"organization": args[0],
+		"Key": keyOrg,
 	}
 
 	keyByte, _ := json.Marshal(key_pair)
@@ -573,11 +612,37 @@ func (s *PeoplechainChaincode) decryptRecordAccess(APIstub shim.ChaincodeStubInt
 }
 
 func (s *PeoplechainChaincode) getUserData(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
-	return shim.Success(nil)
+	if len(args) != 1{
+		return shim.Error("Incorrect number of arguments, expecting 1");
+	}
+
+	attributes := []string{args[0]}
+	key, _ := APIstub.CreateCompositeKey("user", attributes)
+
+	userAsByte, _ := APIstub.GetState(key);
+
+	if userAsByte == nil {
+		return shim.Error("Could not locate user");
+	}
+
+	return shim.Success(userAsByte);
 }
 
 func (s *PeoplechainChaincode) getOrgsData(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
-	return shim.Success(nil)
+	if len(args) != 1{
+		return shim.Error("Incorrect number of arguments, expecting 1");
+	}
+
+	attributes1 := []string{args[0]}
+	key1, _ := APIstub.CreateCompositeKey("Organization", attributes1)
+
+	orgAsByte1, _ := APIstub.GetState(key1);
+
+	if orgAsByte1 == nil {
+		return shim.Error("Could not locate organization");
+	}
+
+	return shim.Success(orgAsByte1);
 }
 
 func (s *PeoplechainChaincode) getBalance(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {

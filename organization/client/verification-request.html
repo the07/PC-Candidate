@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verification Request</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--Font  Awesome icons-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <!-- web fonts -->
+    <link href="assets/webfonts/stylesheet.css" rel="stylesheet">
+
+</head>
+<body ng-app="application" ng-controller="requestController" ng-init="getProfile()">
+<div class="full-width">
+    <div class="full-width">
+        <div class="col-md-4 col-sm-4 col-xl-4 float-left">
+            <div class="logo mobile_logo">
+                <img src="assets/images/pc-logo-login.svg">
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xl-4 float-left">
+            <div class="full-width">
+                <ul class="profile_menu mobile_menu">
+                    <a href="organization-profile.html">
+                        <li>
+                            <img src="assets/images/profile-icon-active.svg">
+                            Profile
+                        </li>
+                    </a>
+                    <a><li class="active">
+                        <img src="assets/images/verification-request-active.svg">
+                        Verification Request
+                    </li>
+                    </a>
+                    <a href="access.html">
+                        <li>
+                            <img src="assets/images/Lock.svg">
+                            All Records
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xl-4 float-right mt-2">
+            <div class="mobile_dropdown">
+                <div class="dropdown float-right">
+                    <div class="profile_dropdown dropdown-toggle">
+                        <img src="assets/images/hep-top-right-logo.svg">
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+                <div class="float-right notification_icon">
+                    <img src="assets/images/Notification.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="org_profile_block">
+        <div class="main_container pt-0">
+            <div class="full-width">
+                <div class="jobs_block">
+                    <div class="full-width p-3">
+                        <div class="full-width mb-2">
+                            <h4 class="float-left cmp_title" ng-bind="orgName"></h4>
+                            <div class="float-right">
+                                <ul class="nav nav-tabs wallet_list">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#queue">
+                                            <span><img class="verifi_icon" src="assets/images/Queue.svg"> Queue</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" data-toggle="tab" href="#validated">
+                                            <span class="active"><img class="verifi_icon" src="assets/images/Validated.svg"> Validated</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="nav-link" data-toggle="tab" href="#rejected">
+                                            <span class="active"><img class="verifi_icon" src="assets/images/Rejected.svg"> Rejected</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="queue">
+                            <div class="full-width">
+                                <div class="verification_header">
+                                    <div class="verification_col">
+                                        <span>Name</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>designation / grade</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>location</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>joining date</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>releiving date</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>private</span>
+                                    </div>
+                                </div>
+                                <div class="verification_body">
+                                    <div class="verification_row" data-toggle="modal" data-target="#exampleModalCenter" ng-repeat="record in queue">
+                                        <div class="verification_col pl-3" style="overflow-wrap: break-word;">
+                                            <div class="verif_img">
+                                                <img src="assets/images/profile-logo.svg">
+                                            </div>
+                                            <div class="verif_info">
+                                                <div class="emp_name">{{record.user}}</div>
+                                                <small>Record Index: {{record.index}}</small>
+                                            </div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.title}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.location}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.from}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.to}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.private}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="validated">
+                            <div class="full-width">
+                                <div class="verification_header">
+                                    <div class="verification_col">
+                                        <span>Name</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>designation</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>branch</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>joining date</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>releiving date</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>action</span>
+                                    </div>
+                                </div>
+                                <div class="verification_body">
+                                    <div class="verification_row" ng-repeat="record in validated">
+                                        <div class="verification_col pl-3" style="overflow-wrap: break-word;">
+                                            <div class="verif_img">
+                                                <img src="assets/images/profile-logo.svg">
+                                            </div>
+                                            <div class="verif_info">
+                                                <div class="emp_name">{{record.user}}</div>
+                                                <small>{{record.index}}</small>
+                                            </div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.title}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.location}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.from}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.to}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.private}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="rejected">
+                            <div class="full-width">
+                                <div class="verification_header">
+                                    <div class="verification_col">
+                                        <span>Name</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>designation</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>branch</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>joining date</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>releiving date</span>
+                                    </div>
+                                    <div class="verification_col">
+                                        <span>action</span>
+                                    </div>
+                                </div>
+                                <div class="verification_body">
+                                    <div class="verification_row" ng-repeat="record in rejected">
+                                        <div class="verification_col pl-3" style="overflow-wrap: break-word;">
+                                            <div class="verif_img">
+                                                <img src="assets/images/profile-logo.svg">
+                                            </div>
+                                            <div class="verif_info">
+                                                <div class="emp_name">{{record.user}}</div>
+                                                <small>{{record.index}}</small>
+                                            </div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.title}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.location}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.from}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.to}}</div>
+                                        </div>
+                                        <div class="verification_col">
+                                            <div class="verification_field">{{record.private}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <button type="button" class="close close_btn" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <div class="modal-body">
+                <div class="">
+                    <div class="full-width">
+                        <input type="text" class="form-control" placeholder="Enter Record Index to sign" ng-model="recordID">
+                        <button class="save_btn float-left" ng-click="signRecord()"><i class="far fa-check-circle"></i> Verify</button>
+                        <button class="delete_btn ml float-right" ng-click="declineRecord()"><i class="far fa-times-circle"></i> Reject</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="app.js"> </script>
+</html>

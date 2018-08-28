@@ -35,7 +35,7 @@
                     <!--<img src="assets/images/verification_request_icon.svg">-->
                     <!--Verification Request-->
                     <!--</li>-->
-                    <a href="wallet.html">
+                    <a href="#">
                         <li>
                             <img src="assets/images/Wallet.svg">
                             Wallet
@@ -69,11 +69,11 @@
                        <!--  <img src="assets/images/Profile thumbnail.svg"> -->
                     </div>
                     <div class="profile_info">
-                        <div class="profile_name">Arivoli Tamilarasan</div>
-                        <div class="profile_text">Coimbatore, Tamilnadu, India</div>
-                        <div class="profile_text">arivoli@heptagon.in</div>
-                        <div class="profile_text">7890455991</div>
-                        <div class="profile_text">DOB: 08/04/1991</div>
+                        <div class="profile_name" ng-bind="fullName"></div>
+                        <div class="profile_text" ng-bind="location"></div>
+                        <!-- <div class="profile_text">arivoli@heptagon.in</div>
+                        <div class="profile_text">7890455991</div> -->
+                        <div class="profile_text" ng-bind="dob"></div>
                         <div class="socila_col">
                             <ul class="profile_social_menu">
                                 <li><img src="assets/images/fb_profile.svg"></li>
@@ -86,12 +86,12 @@
                 <div class="float-left profile_list_col pub-key-col">
                     <div class="full-width">
                         <div class="profile_name">Public key</div>
-                        <div class="pub-key-info">pedsakjsadkja43453</div>
+                        <div class="pub-key-info" ng-bind="publicKey"></div>
                     </div>
                     <div class="pct-col">
                         <span class="pct_title float-left">Pct <br> <small>Peoplechain Tockens</small></span>
                         <span class="float-right summary">Summary</span>
-                        <div class="pub-key-info pct-info">pedsakjsadkja43453</div>
+                        <div class="pub-key-info pct-info">0</div>
                     </div>
                 </div>
                 <div class="float-right profile_list_col qr-col">
@@ -100,31 +100,32 @@
                 </div>
             </div>
             <div class="edu_section">
-                <div class="edu_col">
+                <div class="edu_col" id="education_details">
                     <div class="col-md-6 col-sm-6 col-xl-6 float-left no-padding">
                         <h2 class="edu_title">Educational Details</h2>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xl-6 float-right">
                         <a href="educational-details.html" class="add_new float-right"><i class="fa fa-plus"></i> Add New</a>
                     </div>
-                    <div class="full-width mt-3 pb-3 border-bottom">
-                        <div class="grade_title">10th Grade <button class="verify_grade">Verified</button></div>
+                    <div class="full-width mt-3 pb-3 border-bottom" ng-repeat="record in education_details">
+                        <div class="grade_title">{{record.grade}} <button class="verify_grade">{{record.status}}</button></div>
                         <div class="full-width mt-2">
                             <div class="edu_info_col">
                                 <div class="thumb_nail">
                                     <img src="assets/images/edu-logo.svg">
                                 </div>
                                 <div class="edu_info">
-                                    <div class="">Siv Matriculation Higher Secondary School class of 2009</div>
+                                    <div class="">{{record.org}}</div>
+                                    <div class="profile_text">{{record.join}} - {{record.finish}}</div>
                                 </div>
                             </div>
                             <div class="percentage_col">
                                 <div class="percentage_row">
-                                    <h4 class="percentage">82%</h4>
+                                    <h4 class="percentage">{{record.marks}}%</h4>
                                     <p class="marks_info">Marks Scored</p>
                                 </div>
                             </div>
-                            <div class="documents_col position-relative">
+                           <!--  <div class="documents_col position-relative">
                                 <div class="full-width position-absolute">
                                     <span>Documents</span> <button class="verify_grade">Private</button>
                                 </div>
@@ -139,110 +140,39 @@
                                         <img src="assets/images/unlock.svg">
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="full-width mt-3 pb-3 border-bottom">
-                        <div class="grade_title">12th Grade <button class="verify_grade inpregress">In Progress</button></div>
-                        <div class="full-width mt-2">
-                            <div class="edu_info_col">
-                                <div class="thumb_nail">
-                                    <img src="assets/images/edu-logo2.svg">
-                                </div>
-                                <div class="edu_info">
-                                    <div class="">Siv Matriculation Higher Secondary School class of 2009</div>
-                                    <p>Sirumugai</p>
-                                </div>
-                            </div>
-                            <div class="percentage_col">
-                                <div class="percentage_row">
-                                    <h4 class="percentage">82%</h4>
-                                    <p class="marks_info">Marks Scored</p>
-                                </div>
-                            </div>
-                            <div class="documents_col position-relative">
-                                <div class="full-width position-absolute">
-                                    <span>Documents</span> <button class="verify_grade">Public</button>
-                                </div>
-                                <!--<div class="view_docs" routerLink="/payment">-->
-                                <!--<img src="assets/images/wallet-locked.svg">-->
-                                <!--<p>Pay to View this <br> Private info</p>-->
-                                <!--<span></span>-->
-                                <!--</div>-->
-                                <div class="docs_list">
-                                    <div class="image_list">
-                                        <img src="assets/images/edu-docu.svg">
-                                        <img src="assets/images/edu-docu1.svg">
-                                        <img src="assets/images/edu-docu.svg">
-                                    </div>
-                                    <div class="doc_action">
-                                        <img src="assets/images/Edit 13 px.svg" data-toggle="modal" data-target="#exampleModalCenter1">
-                                        <img src="assets/images/unlock.svg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="full-width mt-3 pb-3">
-                        <div class="grade_title">Under Graduation <button class="verify_grade">Verified</button></div>
-                        <div class="full-width mt-2">
-                            <div class="edu_info_col">
-                                <div class="thumb_nail">
-                                    <img src="assets/images/edu-logo3.svg">
-                                </div>
-                                <div class="edu_info">
-                                    <div class="">Siv Matriculation Higher Secondary School class of 2009</div>
-                                    <p>Sirumugai</p>
-                                </div>
-                            </div>
-                            <div class="percentage_col">
-                                <div class="percentage_row">
-                                    <h4 class="percentage">82%</h4>
-                                    <p class="marks_info">Marks Scored</p>
-                                </div>
-                            </div>
-                            <div class="documents_col position-relative">
-                                <div class="full-width position-absolute">
-                                    <span>Documents</span> <button class="verify_grade">Public</button>
-                                </div>
-                                <div class="docs_list">
-                                    <div class="image_list">
-                                        <img src="assets/images/edu-docu.svg">
-                                        <img src="assets/images/edu-docu1.svg">
-                                        <img src="assets/images/edu-docu.svg">
-                                    </div>
-                                    <div class="doc_action">
-                                        <img src="assets/images/Edit 13 px.svg" data-toggle="modal" data-target="#exampleModalCenter">
-                                        <img src="assets/images/unlock.svg">
-                                    </div>
-                                </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
             <div class="edu_section">
-                <div class="edu_col">
+                <div class="edu_col" id="professional_details">
                     <div class="col-md-6 col-sm-6 col-xl-6 float-left no-padding">
                         <h2 class="edu_title">Professional Details</h2>
                     </div>
                     <div class="col-md-6 col-sm-6 col-xl-6 float-right">
-                        <button class="add_new float-right" (click)="addNewProDetails()"><i class="fa fa-plus"></i> Add New</button>
+                            <a href="professional-details.html" class="add_new float-right"><i class="fa fa-plus"></i> Add New</a>
                     </div>
-                    <div class="full-width mt-3 pb-3 border-bottom">
+                    <div class="full-width mt-3 pb-3 border-bottom" ng-repeat="record in professional_details">
                         <div class="full-width mt-2">
-                            <div class="edu_info_col pro_info_col">
+                            <div class="edu_info_col">
                                 <div class="thumb_nail">
                                     <img src="assets/images/edu-logo.svg">
                                 </div>
                                 <div class="edu_info">
-                                    <div class="designation">UI/UX Designer<button class="verify_grade inpregress">Verified</button></div>
-                                    <div class="profile_text">Heptagon Technologies Pvt Ltd.</div>
-                                    <div class="profile_text">July 2017 - Present - 11 months</div>
-                                    <div class="profile_text">Coimbatore, India</div>
+                                    <div class="designation">{{record.title}}<button class="verify_grade inpregress">{{record.status}}</button></div>
+                                    <div class="profile_text">{{record.organization}}</div>
+                                    <div class="profile_text">{{record.from}} - {{record.to}}</div>
+                                    <div class="profile_text">{{record.location}}</div>
+                                </div>    
+                            </div>
+                            <div class="percentage_col">
+                                <div class="percentage_row">
+                                    <h4 class="percentage">{{record.salary}} INR</h4>
+                                    <p class="marks_info">Annual CTC</p>
                                 </div>
                             </div>
-                            <div class="documents_col position-relative">
+                            <!-- <div class="documents_col position-relative">
                                 <div class="full-width no-padding">
                                     <span>Payslips</span> <button class="verify_grade">Private</button>
                                 </div>
@@ -257,76 +187,12 @@
                                         <img src="assets/images/unlock.svg">
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="full-width mt-3 pb-3 border-bottom">
-                        <div class="full-width mt-2">
-                            <div class="edu_info_col pro_info_col">
-                                <div class="thumb_nail">
-                                    <img src="assets/images/edu-logo2.svg">
-                                </div>
-                                <div class="edu_info">
-                                    <div class="designation">UI/UX Designer<button class="verify_grade inpregress">In Progess</button></div>
-                                    <div class="profile_text">Quess Corp. Ltd</div>
-                                    <div class="profile_text">July 2017 - Present - 11 months</div>
-                                    <div class="profile_text">Tidel Park, Banaglore, India</div>
-                                </div>
-                            </div>
-                            <div class="documents_col position-relative">
-                                <div class="full-width no-padding">
-                                    <span>Documents</span> <button class="verify_grade">Public</button>
-                                </div>
-                                <div class="docs_list mt-2">
-                                    <div class="image_list">
-                                        <img src="assets/images/edu-docu.svg">
-                                        <img src="assets/images/edu-docu1.svg">
-                                        <img src="assets/images/edu-docu.svg">
-                                    </div>
-                                    <div class="doc_action">
-                                        <img src="assets/images/Edit 13 px.svg">
-                                        <img src="assets/images/unlock.svg">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="full-width mt-3 pb-3">
-                        <div class="full-width mt-2">
-                            <div class="edu_info_col pro_info_col">
-                                <div class="thumb_nail">
-                                    <img src="assets/images/edu-logo3.svg">
-                                </div>
-                                <div class="edu_info">
-                                    <div class="designation">UI/UX Designer<button class="verify_grade">Verified</button></div>
-                                    <div class="profile_text">Quess Corp. Ltd</div>
-                                    <div class="profile_text">July 2017 - Present - 11 months</div>
-                                    <div class="profile_text">Tidel Park, Banaglore, India</div>
-                                    <div class="designation">Job Description</div>
-                                    <div class="profile_text">As a Graphic Designer, my job is to design advertisements</div>
-                                </div>
-                            </div>
-                            <div class="documents_col position-relative">
-                                <div class="full-width no-padding">
-                                    <span>Documents</span> <button class="verify_grade">Public</button>
-                                </div>
-                                <div class="docs_list mt-2">
-                                    <div class="image_list">
-                                        <img src="assets/images/edu-docu.svg">
-                                        <img src="assets/images/edu-docu1.svg">
-                                        <img src="assets/images/edu-docu.svg">
-                                    </div>
-                                    <div class="doc_action">
-                                        <img src="assets/images/Edit 13 px.svg">
-                                        <img src="assets/images/unlock.svg">
-                                    </div>
-                                </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="edu_section">
+            <!-- <div class="edu_section">
                 <div class="edu_col">
                     <div class="col-md-6 col-sm-6 col-xl-6 float-left no-padding">
                         <h2 class="edu_title">Skills & Endorsement</h2>
@@ -466,7 +332,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">

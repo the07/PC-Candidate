@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Organization Details</title>
+    <!--Bootstrap 4 css-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--Font  Awesome icons-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+    <link href="assets/css/custom.css" rel="stylesheet">
+    <!-- web fonts -->
+    <link href="assets/webfonts/stylesheet.css" rel="stylesheet">
+
+</head>
+<body ng-app="application" ng-controller="profileController" ng-init="getProfile()">
+<div class="full-width">
+    <div class="full-width">
+        <div class="col-md-4 col-sm-4 col-xl-4 float-left">
+            <div class="logo mobile_logo">
+                <img src="assets/images/pc-logo-login.svg">
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xl-4 float-left">
+            <div class="full-width">
+                <ul class="profile_menu mobile_menu">
+                    <a><li class="active">
+                        <img src="assets/images/profile-icon-active.svg">
+                        Profile
+                    </li>
+                    </a>
+                    <a href="verification-request.html">
+                        <li>
+                            <img src="assets/images/verification_request_icon.svg">
+                            Verification Request
+                        </li>
+                    </a>
+                    <a href="access.html">
+                        <li>
+                            <img src="assets/images/Lock.svg">
+                            All Records
+                        </li>
+                    </a>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xl-4 float-right mt-2">
+            <div class="mobile_dropdown">
+                <div class="dropdown float-right">
+                    <div class="profile_dropdown dropdown-toggle">
+                        <img src="assets/images/hep-top-right-logo.svg">
+                    </div>
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </div>
+                <div class="float-right notification_icon">
+                    <img src="assets/images/Notification.svg">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="org_profile_block">
+        <div class="org_banner">
+            <img src="assets/images/banner_bg.svg">
+            <div class="banner_gradient"><img src="assets/images/banner-gradient.svg"></div>
+            <div class="org_overview">
+                <div class="org_info">
+                    <div class="org_name" ng-bind="orgName">
+                         <span class="verify_grade">Verified</span>
+                    </div>
+                    <div class="full-width">
+                        <span class="org_subname mr-4" ng-bind="orgType"></span>
+                        <span class="org_loc ml-2" ng-bind="orgLocation"><i class="fas fa-map-marker-alt"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="org_logo">
+                <img src="assets/images/hep-logo.svg">
+            </div>
+        </div>
+        <div class="main_container pt-0">
+            <div class="full-width">
+                <div class="about_us_block">
+                    <div class="about_left"></div>
+                    <div class="about_right">
+                        <div class="col-md-6 col-sm-12 col-xl-6 float-left no-padding mobile_margin">
+                            <h5>About us</h5>
+                            <p ng-bind="orgDesc"></p>
+                            <div class="socila_col">
+                                <ul class="profile_social_menu">
+                                    <li><img src="assets/images/fb_profile.svg"></li>
+                                    <li><img src="assets/images/twitter-profile.svg"></li>
+                                    <li><img src="assets/images/linkedin-profile.svg"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xl-6 float-right no-padding">
+                            <div class="full-width">
+                                <div class="profile_name">Public key</div>
+                                <div class="pub-key-info" ng-bind="orgPub"></div>
+                            </div>
+                            <div class="pct-col">
+                                <span class="pct_title float-left">Pct <br> <small>Peoplechain Tockens</small></span>
+                                <span class="float-right summary">Summary</span>
+                                <div class="pub-key-info pct-info">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="jobs_block">
+                    <div class="full-width p-3">
+                        <h4 class="float-left">Verification Request</h4>
+                        <a class="float-right view_all" href="verification-request.html" ng-model="record_length">View all {{record_length}} requests</a>
+                    </div>
+                    <div class="full-width">
+                        <div class="verification_header">
+                            <div class="verification_col">
+                                <span>Name</span>
+                            </div>
+                            <div class="verification_col">
+                                <span>designation / grade</span>
+                            </div>
+                            <div class="verification_col">
+                                <span>location</span>
+                            </div>
+                            <div class="verification_col">
+                                <span>joining date</span>
+                            </div>
+                            <div class="verification_col">
+                                <span>releiving date</span>
+                            </div>
+                            <div class="verification_col">
+                                <span>private</span>
+                            </div>
+                        </div>
+                        <div class="verification_body" id="orgRecords">
+                            <div class="verification_row" ng-repeat="record in orgRecords">
+                                <div class="verification_col pl-3" style="overflow-wrap: break-word;">
+                                    <div class="verif_img">
+                                        <img src="assets/images/profile-logo.svg">
+                                    </div>
+                                    <div class="verif_info">
+                                        <div class="emp_name">{{record.user}}</div>
+                                        <small></small>
+                                    </div>
+                                </div>
+                                <div class="verification_col">
+                                    <div class="verification_field">{{record.title}}</div>
+                                </div>
+                                <div class="verification_col">
+                                    <div class="verification_field">{{record.location}}</div>
+                                </div>
+                                <div class="verification_col">
+                                    <div class="verification_field">{{record.from}}</div>
+                                </div>
+                                <div class="verification_col">
+                                    <div class="verification_field">{{record.to}}</div>
+                                </div>
+                                <div class="verification_col">
+                                    <div class="verification_field">{{record.private}}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script type="text/javascript" src="app.js"> </script>
+</html>

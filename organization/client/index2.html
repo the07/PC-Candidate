@@ -1,0 +1,178 @@
+<!-- SPDX-License-Identifier: Apache-2.0 -->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Peoplechain POC</title>
+
+    <!-- require jquery and bootstrap scripts -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+
+    <!-- adding style here -->
+    <style type="text/css">
+      header{
+        background-color: lightgray;
+        font-size:20px;
+        padding:15px;
+      }
+      header, .form-group{
+        margin-bottom: 3%;
+      }
+      .form-group{
+        width:50%;
+      }
+      #body{
+        margin-left:3%;
+        margin-right:3%;
+      }
+      .form-control{
+        margin: 8px;
+      }
+      #right_header{
+        width:20%;
+        font-size:15px;
+        margin-right:0px;
+      }
+      #left_header{
+        margin-left:0;
+        width:40%;
+        display:inline-block;
+      }
+      #id {
+        width:49%;
+        display: inline-block;
+      }
+      table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+      }
+      td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+      }
+      tr:nth-child(even) {
+          background-color: #dddddd;
+      }
+    </style>
+  </head>
+  <body ng-app="application" ng-controller="appController">
+    <header>
+      <div id="left_header">Peoplechain POC - Organization Node</div>
+    </header>
+
+    <div id="body">
+      <div class="form-group">
+        <label>Register Organization</label>
+        <h5 style="color: red; margin-bottom: 2%;" id="error_key">Error in registering orgainzation</h5>
+        <br>
+        Name: <input class="form-control" type="text" ng-model="org_name" id="org_name" placeholder="Ex: Heptagon">
+        <input id="generateSubmit" type="submit" value="Register" class="btn btn-primary" ng-click="registerOrg()">
+      </div>
+
+      <table id="org_key" class="table" align="center">
+        <tr>
+          <th>Publick Key</th>
+          <th>Private Key</th>
+        </tr>
+
+        <tr ng-repeat="content in rows">
+          <td>{{content.pubkey}}</td>
+          <td>{{content.privkey}}</td>
+        </tr>
+      </table>
+
+      <div class="form-group">
+        <label>Sign Requests</label>
+        <br>
+        Enter the org public key: <input id="signOrg" class="form-control" type="text" placeholder="" ng-model="signOrg">
+        <input id="generateRequests" type="submit" class="btn btn-primary" value="Query" ng-click="querySign()">
+      </div>
+
+      <table id="sign_record" class="table" align="center">
+        <tr>
+          <th>Id</th>
+          <th>User</th>
+          <th>Hash</th>
+          <th>Data</th>
+          <th>Status</th>
+        </tr>
+
+        <tr ng-repeat="record in sign_record">
+          <td>{{record.Key}}</td>
+          <td>{{record.user}}</td>
+          <td>{{record.hash}}</td>
+          <td>{{record.data}}</td>
+          <td>{{record.Status}}</td>
+        </tr>
+      </table>
+
+      <div class="form-group">
+        <label>Decrypt Record</label>
+        <br>
+        Enter the record Id: <input ng-model="decrypt.id" type="text" placeholder="Ex: 1" class="form-control">
+        Enter your private key: <input ng-model="decrypt.key" type="text" class="form-control">
+        <input id="decryptRecord" type="submit" class="btn btn-primary" value="Decrypt" ng-click="decryptRecord()">
+      </div>
+
+      <table id="dec_record">
+        <tr>
+          <th>Data</th>
+        </tr>
+        <tr>
+          <td>{{decrypt_data}}</td>
+        </tr>
+      </table>
+      <br>
+      <br>
+      <div class="form-group">
+        <label>Sign Record</label>
+        <h5 style="color:green;margin-bottom:2%" id="success_sign">Success! Tx ID: {{tx_id}}</h5>
+        <br>
+        Enter the record id: <input type="text" placeholder="Ex: 1" class="form-control" ng-model="sign_id">
+        <input type="submit" id="signRecord" class="btn btn-primary" value="Sign" ng-click="signRecord()">
+        <input type="submit" id="declineRecord" class="btn btn-primary" value="Decline" ng-click="declineRecord()">
+      </div>
+
+      <div class="form-group">
+        <label>Request Access</label>
+        <h5 style="color: green; margin-bottom: 2%" id="access_request">Success! Tx ID: {{access_id}}</h5>
+        <br>
+        Enter the record Id: <input ng-model="request.id" type="text" placeholder="Ex: 1" class="form-control">
+        Organization: <input ng-model="request.org" type="text" placeholder="Organization Public Key" class="form-control">
+        <input id="requestAccess" type="submit" class="btn btn-primary" value="Request" ng-click="requestAccess()">
+      </div>
+
+      <div class="form-group">
+        <label>Decypt Request Access</label>
+        <br>
+        Id: <input type="text" placeholder="Ex:1" class="form-control" ng-model="deaccess.id">
+        Organization: <input type="text" placeholder="Organization public key" class="form-control" ng-model="deaccess.pub">
+        Private Key: <input type="text" placeholder="Org Private Key" class="form-control" ng-model="deaccess.priv">
+        User Key: <input type="text" placeholder="User Public Key" class="form-control" ng-model="deaccess.user">
+        <input id="decryptR" type="submit" class="btn btn-primary" value="Decrypt" ng-click="decryptR()"> 
+      </div>
+
+      <table>
+        <tr>
+          <th>
+            Data
+          </th>
+        </tr>
+
+        <tr>
+          <th>
+            {{decryptR_data}}
+          </th>
+        </tr>
+      </table>
+
+    </div>
+  </body>
+    <!-- requiring the angular page -->
+    <script type="text/javascript" src="app.js"> </script>
+</html>

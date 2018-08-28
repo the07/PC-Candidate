@@ -207,6 +207,8 @@ app.controller('basicInfoController', function($scope, $window, appFactory) {
 	$scope.continue = function() {
 		console.log('Next page');
 		console.log($scope.user);
+		var dob = $scope.user.dob.toDateString();
+		$scope.user.dob = dob;
 		appFactory.createProfile($scope.user, function(data) {
 			if (data == 'SUCCESS') {
 				$window.location.href = '/educational-details.html'
@@ -235,6 +237,13 @@ app.controller('educationController', function($scope, $window, appFactory) {
 		$scope.education.privateKey = $scope.privateKey;
 		$scope.education.publicKey = $scope.publicKey;	
 		$scope.education.type = 1;
+		var join = $scope.education.join.toDateString();
+		$scope.education.join = join;
+
+		if ($scope.education.finish) {
+			var finish = $scope.education.finish.toDateString();
+			$scope.education.finish = finish;
+ 		}
 		appFactory.addRecord($scope.education, function(data) {
 			console.log(data);
 			if (data == 'SUCCESS') {
@@ -264,6 +273,13 @@ app.controller('professionalController', function($scope, $window, appFactory) {
 		$scope.professional.privateKey = $scope.privateKey;
 		$scope.professional.publicKey = $scope.publicKey;
 		$scope.professional.type = 2;	
+		var from = $scope.professional.from.toDateString();
+		$scope.professional.from = from;
+
+		if ($scope.professional.to) {
+			var to = $scope.professional.to.toDateString();
+			$scope.professional.to = to;
+		}
 		appFactory.addRecord($scope.professional, function(data) {
 			console.log(data);
 			if (data == 'SUCCESS') {
@@ -274,10 +290,51 @@ app.controller('professionalController', function($scope, $window, appFactory) {
 })
 
 app.controller('profileController', function($scope, $window, appFactory){
+	
 	$scope.getProfile = function() {
 		console.log("Fetching profile");
 		appFactory.getUserData(function(data) {
 			console.log(data);
+			var profile = JSON.parse(data.profile);
+			$scope.fullName = profile.firstName + " " + profile.lastName;
+			$scope.location = profile.address;
+			$scope.dob = profile.dob;
+			$scope.publicKey = data.public_key;
+
+			var array = [];
+			var pro_array = [];
+			for (var i = 0; i < data.record.length; i++) {
+				var record = {};
+				var record_data = JSON.parse(data.record[i].data);
+				console.log("official" + record_data);
+				if (record_data.type == 1) {
+					record.org = record_data.institute;
+					record.grade = record_data.grade;
+					record.status = data.record[i].Status;
+					record.marks = record_data.marks;
+					record.join = record_data.join;
+					record.finish = record_data.finish;
+					array.push(record);
+				}
+
+				if (record_data.type == 2){
+					record.title = record_data.title;
+					record.organization = record_data.institute;
+					record.status = data.record[i].Status;
+					record.from = record_data.from;
+					if (!record_data.to) {
+						record.to = "Present";
+					} else {
+						record.to = record_data.to;
+					}
+					record.location = record_data.location;
+					record.salary = record_data.salary;
+					pro_array.push(record);
+				}
+			}
+			$scope.education_details = array;
+			$scope.professional_details = pro_array;
+			console.log($scope.education_details);
 		})
 	}
 })
@@ -319,7 +376,7 @@ app.factory('appFactory', function($http){
 	}
 
 	factory.addRecord = function(data, callback) {
-		var record_data = sessionStorage.getItem("user") + "-" +  data.index + "-" + data.publicKey + "-" + data.privateKey + "-" + "1" + "-" + JSON.stringify(data);
+		var record_data = sessionStorage.getItem("user") + "-" +  data.index + "-" + data.publicKey + "-" + data.privateKey + "-" + data.institute + "-" + JSON.stringify(data);
 		$http.get('/add_record/'+record_data).success(function(output) {
 			callback(output);
 		})

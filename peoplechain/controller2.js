@@ -126,10 +126,10 @@ module.exports = (function() {
         return fabric_client.getUserContext(url, true);
       }).then((user_from_store) => {
         if (user_from_store && user_from_store.isEnrolled()) {
-          console.log('Successfully loaded user1 from persistence');
+          console.log('Successfully loaded user from persistence');
           member_user = user_from_store;
         } else {
-          throw new Error('Failed tp get user1, register user first');
+          throw new Error('Failed tp get user, register user first');
         }
 
         tx_id = fabric_client.newTransactionID();
@@ -256,7 +256,7 @@ module.exports = (function() {
         const request = {
           chaincodeId: 'peoplechain',
           txId: tx_id,
-          fcn: 'getUser',
+          fcn: 'getUserData',
           args: [user]
         };
 
@@ -318,6 +318,8 @@ module.exports = (function() {
         var privkey = array[3];
         var orgkey = array[4];
         var data = array[5];
+
+        console.log(data);
 
         var record = {
           id: id,
@@ -467,6 +469,7 @@ module.exports = (function() {
 
         tx_id = fabric_client.newTransactionID();
         console.log("Assigning transaction id: ", tx_id._transaction_id);
+        console.log(data);
 
 
         var request = {
