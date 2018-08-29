@@ -630,9 +630,9 @@ module.exports = (function() {
       });
     },
 
-    decline_access: function(req, res){
+    decline_access: function(req, res) {
 
-      var array = req.params.split("-")
+      var array = req.params.data.split("-")
       user = array[0];
       org = array[1];
       id = array[2];
@@ -773,7 +773,7 @@ module.exports = (function() {
     allow_access: function(req, res) {
 
       console.log("Reached here, didnt we")
-      var array = req.params.split("-")
+      var array = req.params.data.split("-")
       user = array[0];
       org = array[1];
       id = array[2];
@@ -803,8 +803,6 @@ module.exports = (function() {
 
         tx_id = fabric_client.newTransactionID();
         console.log("Assigning transaction id: ", tx_id._transaction_id);
-        console.log(data);
-
 
         var request = {
           chaincodeId: 'peoplechain',

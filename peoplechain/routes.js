@@ -30,11 +30,11 @@ module.exports = function(app) {
     peoplechain.request_record_access(req, res);
   })
 
-  app.get('allow_access/:data', function(req, res){
+  app.get('/allow_access/:data', function(req, res){
     peoplechain.allow_access(req, res);
   })
 
-  app.get('decline_access/:data', function(req, res){
+  app.get('/decline_access/:data', function(req, res){
     peoplechain.decline_access(req, res);
   })
 

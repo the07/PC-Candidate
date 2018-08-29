@@ -382,6 +382,7 @@ app.factory('appFactory', function($http){
 		console.log("Allowing access2")
 		var user = sessionStorage.getItem("user");
 		var request = user + "-" + data.organizationKey + "-" + data.recordID
+		console.log(request);
 		$http.get('/allow_access/'+request).success(function(output){
 			callback(output);
 		})

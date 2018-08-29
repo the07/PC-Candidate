@@ -226,6 +226,16 @@ app.controller('accessController', function($scope, $window, appFactory) {
 				var rec_data = data[i].Access
 				var keys = data[i].Key.split("-")
 				rec_data.index = keys[1]
+				if (rec_data.data !== "ENCRYPTED") {
+					var some_Data = {};
+					var unencrypted = JSON.parse(rec_data.data)
+					some_Data.title = unencrypted.title;
+					some_Data.salary = unencrypted.salary;
+					some_Data.location = unencrypted.location;
+					some_Data.desc = unencrypted.desc;
+					rec_data.data = some_Data
+				}
+				console.log("Unencrypted: " + unencrypted);
 				array.push(rec_data);
 			}
 			$scope.validated = array;
