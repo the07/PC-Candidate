@@ -339,10 +339,68 @@ app.controller('profileController', function($scope, $window, appFactory){
 	}
 })
 
+app.controller('accessController', function($scope, $window, appFactory) {
+
+	$scope.getAccess = function() {
+		appFactory.getAccess(function(data){
+			console.log(data);
+			var array = [];
+			for (var i  = 0; i < data.length; i++){
+				var rec_data = data[i].Access
+				var keys = data[i].Key.split("-")
+				rec_data.index = keys[1]
+				rec_data.organization = keys[0]
+				if (rec_data.status == "PENDING") {
+					array.push(rec_data);
+				}
+				
+			}
+			$scope.queue = array;
+		})
+	}
+
+	$scope.allowAccess = function() {
+		console.log("Allowing access")
+		appFactory.allowAccess($scope.allow, function(data) {
+			console.log(data);
+		})
+	}
+
+	$scope.declineAccess = function() {
+		appFactory.declineAccess($scope.allow, function(data) {
+			console.log(data);
+		})
+	}
+})
+
 // Angular Factory
 app.factory('appFactory', function($http){
 
 	var factory = {};
+
+	factory.allowAccess = function(data, callback) {
+		console.log("Allowing access2")
+		var user = sessionStorage.getItem("user");
+		var request = user + "-" + data.organizationKey + "-" + data.recordID
+		$http.get('/allow_access/'+request).success(function(output){
+			callback(output);
+		})
+	}
+
+	factory.declineAccess = function(data, callback) {
+		var user = sessionStorage.getItem("user");
+		var request = user + "-" + data.organizationKey + "-" + data.recordID
+		$http.get('/decline_access/'+request).success(function(output){
+			callback(output);
+		})
+	}
+
+	factory.getAccess = function(callback) {
+		var user = sessionStorage.getItem("user");
+		$http.get('/request_record_access/'+user).success(function(output){
+			callback(output)
+		})
+	}
 
 	factory.registerUser = function(data, callback){
 		var user_data = data.url + "-" + data.password;

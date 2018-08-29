@@ -26,6 +26,18 @@ module.exports = function(app) {
     peoplechain.get_user_data(req, res);
   })
 
+  app.get('/request_record_access/:user', function(req, res) {
+    peoplechain.request_record_access(req, res);
+  })
+
+  app.get('allow_access/:data', function(req, res){
+    peoplechain.allow_access(req, res);
+  })
+
+  app.get('decline_access/:data', function(req, res){
+    peoplechain.decline_access(req, res);
+  })
+
 /*   app.get('/get_all_record', function(req, res){
     peoplechain.get_all_record(req, res);
   });

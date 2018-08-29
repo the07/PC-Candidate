@@ -118,6 +118,8 @@ func (s *PeoplechainChaincode) Invoke(APIstub shim.ChaincodeStubInterface) sc.Re
 		return s.updateProfile(APIstub, args)
 	} else if function == "updateOrganizationProfile" {
 		return s.updateOrganizationProfile(APIstub, args)
+	} else if function == "getAllRecordAccess" {
+		return s.getAllRecordAccess(APIstub)
 	}
 
 	return shim.Error("Invalid function name")
@@ -478,9 +480,9 @@ func (s *PeoplechainChaincode) requestAccess(APIstub shim.ChaincodeStubInterface
 		return shim.Error("Record Not Found")
 	}
 
-	recordAccess := RecordAccess{  Data: "NULL", Status: "PENDING"}
+	recordAccess := RecordAccess{  Data: "ENCRYPTED", Status: "PENDING"}
 	recordAccessAsByte, _ := json.Marshal(recordAccess)
-	attributes := []string{args[0], args[1]}
+	attributes := []string{args[1], args[0]}
 	key, _ := APIstub.CreateCompositeKey("ra", attributes)
 	err := APIstub.PutState(key, recordAccessAsByte)
 
@@ -491,7 +493,7 @@ func (s *PeoplechainChaincode) requestAccess(APIstub shim.ChaincodeStubInterface
 	return shim.Success(nil)
 }
 
-func (s *PeoplechainChaincode) grantAccess(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+/* func (s *PeoplechainChaincode) grantAccess(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
 	if len(args) != 4 {
 		return shim.Error("Incorrect number of arguments")
 	}
@@ -527,6 +529,45 @@ func (s *PeoplechainChaincode) grantAccess(APIstub shim.ChaincodeStubInterface, 
 	hash := hex.EncodeToString(encrypted[:])
 
 	recordAccess.Data = hash
+
+	recordAccessAsBytes, _ := json.Marshal(recordAccess)
+
+	err1 := APIstub.PutState(key, recordAccessAsBytes)
+	if err1 != nil {
+		return shim.Error(fmt.Sprintf("Failed to grant record access: %s", err1))
+	}
+
+	return shim.Success(nil);
+
+} */
+
+func (s *PeoplechainChaincode) grantAccess(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
+	if len(args) != 2 {
+		return shim.Error("Incorrect number of arguments")
+	}
+
+	attributes := []string{args[0], args[1]}
+	key, _ := APIstub.CreateCompositeKey("ra", attributes)
+	recordAccessAsByte, errAccess := APIstub.GetState(key)
+
+	if errAccess != nil {
+		return shim.Error("RecordAccess file not found.")
+	}
+
+	recordAccess := RecordAccess{}
+	json.Unmarshal(recordAccessAsByte, &recordAccess)
+
+	recordAccess.Status = "GRANTED"
+
+	recAsBytes, _ := APIstub.GetState(args[1])
+	if recAsBytes == nil {
+		return shim.Error("Could not find record")
+	}
+
+	rec := Record{}
+	json.Unmarshal(recAsBytes, &rec)
+
+	recordAccess.Data = rec.Data
 
 	recordAccessAsBytes, _ := json.Marshal(recordAccess)
 
@@ -689,20 +730,102 @@ func (s *PeoplechainChaincode) getBalance(APIstub shim.ChaincodeStubInterface, a
 }
 
 func (s *PeoplechainChaincode) getRecordAccess(APIstub shim.ChaincodeStubInterface, args []string) sc.Response {
-	if len(args) != 2 {
+	if len(args) != 1 {
 		return shim.Error("Incorrect number of arguments")
 	}
 
-	attributes := []string{args[0], args[1]}
-	key, _ := APIstub.CreateCompositeKey("ra", attributes)
+	/* attributes := []string{args[0], []string{}}
+	key, _ := APIstub.CreateCompositeKey("ra", attributes) */
 
-	recordAccessAsByte, _ := APIstub.GetState(key)
+	org := args[0]
 
-	if recordAccessAsByte == nil {
-		return shim.Error("No Record Access File found")
+	recordAccessIterator, parError := APIstub.GetStateByPartialCompositeKey("ra", []string{org})
+	if parError != nil {
+		return shim.Error(parError.Error())
 	}
 
-	return shim.Success(recordAccessAsByte)
+	defer recordAccessIterator.Close()
+	
+	var accessBuffer bytes.Buffer
+	accessBuffer.WriteString("[")
+
+	cArrayMemberAlreadyWritten := false
+	for recordAccessIterator.HasNext() {
+		accessQueryResponse, accessErr := recordAccessIterator.Next()
+		if accessErr != nil {
+			return shim.Error(accessErr.Error())
+		}
+
+		if cArrayMemberAlreadyWritten == true {
+			accessBuffer.WriteString(",")
+		}
+
+		accessBuffer.WriteString("{\"Key\":")
+		accessBuffer.WriteString("\"")
+		_, keyComp, compError := APIstub.SplitCompositeKey(accessQueryResponse.Key)
+		if compError != nil {
+			return shim.Error(parError.Error())
+		}
+		accessBuffer.WriteString(keyComp[0] + "-" + keyComp[1])
+		accessBuffer.WriteString("\"")
+
+		accessBuffer.WriteString(", \"Access\":")
+		accessBuffer.WriteString(string(accessQueryResponse.Value))
+		accessBuffer.WriteString("}")
+		cArrayMemberAlreadyWritten = true
+	}
+	accessBuffer.WriteString("]")
+
+	fmt.Printf(" -queryAllAccess:\n%s\n", accessBuffer.String())
+
+	return shim.Success(accessBuffer.Bytes())
+}
+
+func (s *PeoplechainChaincode) getAllRecordAccess(APIstub shim.ChaincodeStubInterface) sc.Response {
+
+	/* attributes := []string{args[0], []string{}}
+	key, _ := APIstub.CreateCompositeKey("ra", attributes) */
+
+	recordAccessIterator1, parError1 := APIstub.GetStateByPartialCompositeKey("ra", []string{})
+	if parError1 != nil {
+		return shim.Error(parError1.Error())
+	}
+
+	defer recordAccessIterator1.Close()
+	
+	var accessBuffer1 bytes.Buffer
+	accessBuffer1.WriteString("[")
+
+	cArrayMemberAlreadyWritten1 := false
+	for recordAccessIterator1.HasNext() {
+		accessQueryResponse1, accessErr1 := recordAccessIterator1.Next()
+		if accessErr1 != nil {
+			return shim.Error(accessErr1.Error())
+		}
+
+		if cArrayMemberAlreadyWritten1 == true {
+			accessBuffer1.WriteString(",")
+		}
+
+		accessBuffer1.WriteString("{\"Key\":")
+		accessBuffer1.WriteString("\"")
+		_, keyComp1, compError1 := APIstub.SplitCompositeKey(accessQueryResponse1.Key)
+		if compError1 != nil {
+			return shim.Error(compError1.Error())
+		}
+		accessBuffer1.WriteString(keyComp1[0] + "-" + keyComp1[1])
+		accessBuffer1.WriteString("\"")
+
+		accessBuffer1.WriteString(", \"Access\":")
+		accessBuffer1.WriteString(string(accessQueryResponse1.Value))
+		accessBuffer1.WriteString("}")
+		cArrayMemberAlreadyWritten1 = true
+	}
+	accessBuffer1.WriteString("]")
+
+	fmt.Printf(" -queryAllAccess:\n%s\n", accessBuffer1.String())
+
+	return shim.Success(accessBuffer1.Bytes())
 }
 
 

@@ -34,6 +34,10 @@ module.exports = function(app){
         peoplechain.request_access(req, res);
     })
 
+    app.get('/get_request_access/:data', function(req, res){
+        peoplechain.get_request_access(req, res);
+    })
+
     /* app.get('/get_all_record', function(req, res){
         peoplechain.get_all_record(req, res);
     });

@@ -217,7 +217,19 @@ app.controller('accessController', function($scope, $window, appFactory) {
 				$scope.all = array;
 				console.log("Connectted Records:" + array[0].data);
 			})
-        })
+		})
+
+		appFactory.getRecordAccess(function(data){
+			console.log("Access" + data);
+			var array = [];
+			for (var i  = 0; i < data.length; i++){
+				var rec_data = data[i].Access
+				var keys = data[i].Key.split("-")
+				rec_data.index = keys[1]
+				array.push(rec_data);
+			}
+			$scope.validated = array;
+		})
     }
 });
 
@@ -426,7 +438,17 @@ app.factory('appFactory', function($http){
         $http.get('/request_access/'+request).success(function(output){
             callback(output);
         });
-    }
+	}
+	
+	factory.getRecordAccess = function(callback){
+		var	keys = sessionStorage.getItem("orgKeys");
+		var publicKey = JSON.parse(keys).pubkey;
+		var org = sessionStorage.getItem("organization");
+        var request = org + "-" + publicKey;
+		$http.get('/get_request_access/'+request).success(function(output){
+			callback(output);
+		})
+	}
 
     return factory;
 
