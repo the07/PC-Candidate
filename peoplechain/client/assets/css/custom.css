@@ -568,6 +568,11 @@ button:focus {
 .inpregress {
     background: #F7A400;
 }
+
+.declined {
+    background: #FF0000;
+}
+
 .thumb_nail {
     float: left;
     width: 90px;

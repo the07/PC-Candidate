@@ -303,35 +303,50 @@ app.controller('profileController', function($scope, $window, appFactory){
 
 			var array = [];
 			var pro_array = [];
-			for (var i = 0; i < data.record.length; i++) {
-				var record = {};
-				var record_data = JSON.parse(data.record[i].data);
-				console.log("official" + record_data);
-				if (record_data.type == 1) {
-					record.org = record_data.institute;
-					record.grade = record_data.grade;
-					record.status = data.record[i].Status;
-					record.marks = record_data.marks;
-					record.join = record_data.join;
-					record.finish = record_data.finish;
-					array.push(record);
-				}
+			appFactory.queryAllRecord(function(data) {
+				console.log(data);
+				for (var i=0; i < data.length; i++) {
+					if (data[i].Record.user == $scope.publicKey) {
+						var record = {};
+						var record_data = JSON.parse(data[i].Record.data);
+						console.log("official" + record_data);
+						if (record_data.type == 1) {
+							record.org = record_data.institute;
+							record.grade = record_data.grade;
+							record.status = data[i].Record.Status;
+							record.marks = record_data.marks;
+							record.join = record_data.join;
+							record.finish = record_data.finish;
+							if (record.status == "PENDING") {
+								$scope.statusClass = "inpregress"
+							} else if (record.status == "DECLINED") {
+								$scope.statusClass = "declined"
+							}
+							array.push(record);
+						}
 
-				if (record_data.type == 2){
-					record.title = record_data.title;
-					record.organization = record_data.institute;
-					record.status = data.record[i].Status;
-					record.from = record_data.from;
-					if (!record_data.to) {
-						record.to = "Present";
-					} else {
-						record.to = record_data.to;
+						if (record_data.type == 2){
+							record.title = record_data.title;
+							record.organization = record_data.institute;
+							record.status = data[i].Record.Status;
+							record.from = record_data.from;
+							if (!record_data.to) {
+								record.to = "Present";
+							} else {
+								record.to = record_data.to;
+							}
+							record.location = record_data.location;
+							record.salary = record_data.salary;
+							if (record.status == "PENDING") {
+								$scope.statusClass2 = "inpregress"
+							} else if (record.status == "DECLINED") {
+								$scope.statusClass2 = "declined"
+							}
+							pro_array.push(record);
+						}
 					}
-					record.location = record_data.location;
-					record.salary = record_data.salary;
-					pro_array.push(record);
 				}
-			}
+			})
 			$scope.education_details = array;
 			$scope.professional_details = pro_array;
 			console.log($scope.education_details);
@@ -367,6 +382,7 @@ app.controller('accessController', function($scope, $window, appFactory) {
 	}
 
 	$scope.declineAccess = function() {
+		console.log('Decline access')
 		appFactory.declineAccess($scope.allow, function(data) {
 			console.log(data);
 		})
@@ -377,6 +393,13 @@ app.controller('accessController', function($scope, $window, appFactory) {
 app.factory('appFactory', function($http){
 
 	var factory = {};
+
+	factory.queryAllRecord = function(callback){
+		var user = sessionStorage.getItem("user");
+		$http.get('/get_all_record/'+user).success(function(output){
+		  callback(output)
+	  });
+	}
 
 	factory.allowAccess = function(data, callback) {
 		console.log("Allowing access2")
@@ -389,6 +412,7 @@ app.factory('appFactory', function($http){
 	}
 
 	factory.declineAccess = function(data, callback) {
+		console.log('Decline access')
 		var user = sessionStorage.getItem("user");
 		var request = user + "-" + data.organizationKey + "-" + data.recordID
 		$http.get('/decline_access/'+request).success(function(output){
