@@ -1,4 +1,4 @@
-var peoplechain = require('./controller2.js');
+var peoplechain = require('./controller3.js');
 
 module.exports = function(app){
 

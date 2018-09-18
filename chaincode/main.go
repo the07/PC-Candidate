@@ -120,6 +120,8 @@ func (s *PeoplechainChaincode) Invoke(APIstub shim.ChaincodeStubInterface) sc.Re
 		return s.updateOrganizationProfile(APIstub, args)
 	} else if function == "getAllRecordAccess" {
 		return s.getAllRecordAccess(APIstub)
+	} else if function == "getAllOrgs" {
+		return s.getAllOrgs(APIstub)
 	}
 
 	return shim.Error("Invalid function name")
@@ -826,6 +828,47 @@ func (s *PeoplechainChaincode) getAllRecordAccess(APIstub shim.ChaincodeStubInte
 	fmt.Printf(" -queryAllAccess:\n%s\n", accessBuffer1.String())
 
 	return shim.Success(accessBuffer1.Bytes())
+}
+
+func (s *PeoplechainChaincode) getAllOrgs(APIstub shim.ChaincodeStubInterface) sc.Response {
+	
+	allOrgsIterator, orgError := APIstub.GetStateByPartialCompositeKey("Organization", []string{})
+	if orgError != nil {
+		return shim.Error(orgError.Error())
+	}
+	
+	defer allOrgsIterator.Close()
+
+	var orgsBuffer bytes.Buffer
+	orgsBuffer.WriteString("[")
+
+	orgsArrayMemberAlreadyWritten := false
+	for allOrgsIterator.HasNext() {
+		orgsQueryResponse, orgError1 := allOrgsIterator.Next()
+		if orgError1 != nil {
+			return shim.Error(orgError1.Error())
+		}
+
+		if orgsArrayMemberAlreadyWritten == true {
+			orgsBuffer.WriteString(",")
+		}
+
+		orgsBuffer.WriteString("{\"Org\":")
+		orgsBuffer.WriteString("\"")
+		orgsBuffer.WriteString(orgsQueryResponse.Key)
+		orgsBuffer.WriteString("\"")
+
+		orgsBuffer.WriteString(", \"Details\":")
+		orgsBuffer.WriteString(string(orgsQueryResponse.Value))
+		orgsBuffer.WriteString("}")
+		orgsArrayMemberAlreadyWritten = true
+	}
+
+	orgsBuffer.WriteString("]")
+
+	fmt.Printf(" - allOrgs:\n%s\n", orgsBuffer.String())
+
+	return shim.Success(orgsBuffer.Bytes())
 }
 
 

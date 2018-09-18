@@ -10,7 +10,7 @@ var path          = require('path');
 var util          = require('util');
 var os            = require('os');
 
-const basePath = path.resolve(__dirname, './certs');
+const basePath = path.resolve(__dirname, '../peoplechain/certs');
 const readCryptoFile = filename => fs.readFileSync(path.resolve(basePath, filename)).toString();
 
 var fabric_client = new Fabric_Client();
@@ -18,18 +18,18 @@ var fabric_ca_client = null;
 
 var channel = fabric_client.newChannel('mychannel');
 var peer = fabric_client.newPeer('grpcs://localhost:7051', {
-  pem: readCryptoFile('peer2.pem'),
-  'ssl-target-name-override': 'peer0.org2.example.com'
+  pem: readCryptoFile('peer1.pem'),
+  'ssl-target-name-override': 'peer0.org1.example.com'
 });
 channel.addPeer(peer);
 
-var orderer = fabric_client.newOrderer('grpcs://192.168.86.34:7050', {
+var orderer = fabric_client.newOrderer('grpcs://localhost:7050', {
   pem: readCryptoFile('Orderer.pem'),
   'ssl-target-name-override': 'orderer.example.com'
 });
 channel.addOrderer(orderer);
 
-var store_path = path.resolve(__dirname, '.hfc-key-store');
+var store_path = path.join(os.homedir(), '.hfc-key-store');
 console.log('Store path: ' + store_path);
 
 var user_data = {};
@@ -57,7 +57,7 @@ module.exports = (function() {
                 verify: false
               };
       
-              fabric_ca_client = new Fabric_CA_Client('https://localhost:8054', tlsOptions , 'ca.org2.example.com', crypto_suite);
+              fabric_ca_client = new Fabric_CA_Client('https://localhost:7054', tlsOptions , 'ca.org1.example.com', crypto_suite);
       
               return fabric_client.getUserContext('admin', true);
             }).then((user_from_store) => {
@@ -68,7 +68,7 @@ module.exports = (function() {
                 throw new Error('Failed to get admin... register and enroll admin');
               }
       
-              return fabric_ca_client.register({enrollmentID: array[0], enrollmentSecret: array[1], affiliation: 'org2.department1'}, admin_user);
+              return fabric_ca_client.register({enrollmentID: array[0], enrollmentSecret: array[1], affiliation: 'org1.department1'}, admin_user);
             }).then((secret) => {
               console.log("Successfully registered user");
               user_data.secret = secret;
@@ -79,7 +79,7 @@ module.exports = (function() {
       
               return fabric_client.createUser({
                 username: array[0],
-                mspid: 'Org2MSP',
+                mspid: 'Org1MSP',
                 cryptoContent: {
                   privateKeyPEM: enrollment.key.toBytes(),
                   signedCertPEM: enrollment.certificate
@@ -170,8 +170,8 @@ module.exports = (function() {
 
                 let event_hub = fabric_client.newEventHub();
                 event_hub.setPeerAddr('grpcs://localhost:7053', {
-                    pem: readCryptoFile('peer2.pem'),
-                    'ssl-target-name-override': 'peer0.org2.example.com'
+                    pem: readCryptoFile('peer1.pem'),
+                    'ssl-target-name-override': 'peer0.org1.example.com'
                 });
 
                 let txPromise = new Promise((resolve, reject) => {
@@ -302,8 +302,8 @@ module.exports = (function() {
                 // is required bacause the event registration must be signed
                 let event_hub = fabric_client.newEventHub();
                 event_hub.setPeerAddr('grpcs://localhost:7053', {
-                    pem: readCryptoFile('peer2.pem'),
-                    'ssl-target-name-override': 'peer0.org2.example.com'
+                    pem: readCryptoFile('peer1.pem'),
+                    'ssl-target-name-override': 'peer0.org1.example.com'
                 });
 
                 // using resolve the promise so that result status may be processed
@@ -549,8 +549,8 @@ module.exports = (function() {
                     // is required bacause the event registration must be signed
                     let event_hub = fabric_client.newEventHub();
                     event_hub.setPeerAddr('grpcs://localhost:7053', {
-                        pem: readCryptoFile('peer2.pem'),
-                        'ssl-target-name-override': 'peer0.org2.example.com'
+                        pem: readCryptoFile('peer1.pem'),
+                        'ssl-target-name-override': 'peer0.org1.example.com'
                     });
 
                     // using resolve the promise so that result status may be processed
@@ -693,8 +693,8 @@ module.exports = (function() {
                     // is required bacause the event registration must be signed
                     let event_hub = fabric_client.newEventHub();
                     event_hub.setPeerAddr('grpcs://localhost:7053', {
-                        pem: readCryptoFile('peer2.pem'),
-                        'ssl-target-name-override': 'peer0.org2.example.com'
+                        pem: readCryptoFile('peer1.pem'),
+                        'ssl-target-name-override': 'peer0.org1.example.com'
                     });
 
                     // using resolve the promise so that result status may be processed
@@ -840,8 +840,8 @@ module.exports = (function() {
                     // is required bacause the event registration must be signed
                     let event_hub = fabric_client.newEventHub();
                     event_hub.setPeerAddr('grpcs://localhost:7053', {
-                        pem: readCryptoFile('peer2.pem'),
-                        'ssl-target-name-override': 'peer0.org2.example.com'
+                        pem: readCryptoFile('peer1.pem'),
+                        'ssl-target-name-override': 'peer0.org1.example.com'
                     });
 
                     // using resolve the promise so that result status may be processed

@@ -219,6 +219,15 @@ app.controller('basicInfoController', function($scope, $window, appFactory) {
 
 app.controller('educationController', function($scope, $window, appFactory) {
 
+	/* new code added on 18-09 */
+
+	appFactory.getAllOrgs(function(data) {
+		console.log("Something is cooking.");
+		console.log(JSON.parse(data));
+	})
+
+	/* until here */
+
 	$scope.keys = sessionStorage.getItem("keypair");
 
 	$scope.$watchCollection('keys', function(newVal, oldVal) {
@@ -254,6 +263,14 @@ app.controller('educationController', function($scope, $window, appFactory) {
 })
 
 app.controller('professionalController', function($scope, $window, appFactory) {
+
+	/* new code added on 18-09 */
+
+	appFactory.getAllOrgs(function(data) {
+		console.log(data);
+	})
+
+	/* until here */
 
 	$scope.keys = sessionStorage.getItem("keypair");
 
@@ -393,6 +410,17 @@ app.controller('accessController', function($scope, $window, appFactory) {
 app.factory('appFactory', function($http){
 
 	var factory = {};
+
+	/* Get all orgs code */
+
+	factory.getAllOrgs = function(callback){
+		var user = sessionStorage.getItem("user");
+		$http.get('/get_all_orgs/'+user).success(function(output) {
+			callback(output)
+		});
+	}
+
+	/* until here */
 
 	factory.queryAllRecord = function(callback){
 		var user = sessionStorage.getItem("user");
