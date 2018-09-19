@@ -227,15 +227,26 @@ app.controller('accessController', function($scope, $window, appFactory) {
 				var keys = data[i].Key.split("-")
 				rec_data.index = keys[1]
 				if (rec_data.data !== "ENCRYPTED") {
-					var some_Data = {};
 					var unencrypted = JSON.parse(rec_data.data)
-					some_Data.title = unencrypted.title;
-					some_Data.salary = unencrypted.salary;
-					some_Data.location = unencrypted.location;
-					some_Data.desc = unencrypted.desc;
-					rec_data.data = some_Data
+					if (unencrypted.type == 1) {
+						rec_data.data = {
+							"institute": unencrypted.institute,
+							"join": unencrypted.join,
+							"finish": unencrypted.finish,
+							"marks": unencrypted.marks,
+							"grade": unencrypted.grade,
+						}
+					}
+					else {
+						rec_data.data = {
+							"institute": unencrypted.institute,
+							"title": unencrypted.title,
+							"salary": unencrypted.salary,
+							"from": unencrypted.from,
+							"desc": unencrypted.desc,
+						}
+					}
 				}
-				console.log("Unencrypted: " + unencrypted);
 				array.push(rec_data);
 			}
 			$scope.validated = array;

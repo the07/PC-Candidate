@@ -393,9 +393,11 @@ app.controller('profileController', function($scope, $window, appFactory){
 							record.join = record_data.join;
 							record.finish = record_data.finish;
 							if (record.status == "PENDING") {
-								$scope.statusClass = "inpregress"
+								record.statusClass = "inpregress";
 							} else if (record.status == "DECLINED") {
-								$scope.statusClass = "declined"
+								record.statusClass = "declined";
+							} else if (record.status == "SIGNED") {
+								record.statusClass = "signed";
 							}
 							array.push(record);
 						}
@@ -412,9 +414,13 @@ app.controller('profileController', function($scope, $window, appFactory){
 							record.location = record_data.location;
 							record.salary = record_data.salary;
 							if (record.status == "PENDING") {
-								$scope.statusClass2 = "inpregress"
-							} else if (record.status == "DECLINED") {
-								$scope.statusClass2 = "declined"
+								record.statusClass2 = "inpregress";
+							} else if (record.status == "SIGNED") {
+								console.log(record.status + record.title);
+								record.statusClass2 = "signed";
+							} else {
+								console.log(record.status + record.title)
+								record.statusClass2 = "declined";
 							}
 							pro_array.push(record);
 						}
