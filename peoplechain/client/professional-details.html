@@ -59,7 +59,9 @@
                             <div class="col-md-6 col-sm-6 col-xl-6 float-left p-0 pr-2">
                                 <div class="form-group">
                                     <label>Company</label>
-                                    <input class="form-control" formControlName="company" placeholder="Heptagon Technologies" ng-model="professional.institute">
+                                    <select class="form-control" ng-model="professional.institute">
+                                        <option ng-repeat="org in allOrgs" value="{{org.key}}">{{org.fullName}}</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xl-6 float-left p-0 pl-2">

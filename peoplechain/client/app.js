@@ -221,9 +221,24 @@ app.controller('educationController', function($scope, $window, appFactory) {
 
 	/* new code added on 18-09 */
 
+	$scope.allOrgs = [];
+
 	appFactory.getAllOrgs(function(data) {
 		console.log("Something is cooking.");
-		console.log(JSON.parse(data));
+		console.log(data);
+		for (var i = 0; i < data.length; i++) {
+			console.log(data[i])
+			var organization = {};
+			organization.key = data[i].Org;
+			var profile = data[i].Details.profile;
+			if (profile !== "NULL") {
+				var profileJSON = JSON.parse(profile)
+				var name = profileJSON.companyName;
+				organization.fullName = name;
+				$scope.allOrgs.push(organization);
+			}
+		}
+		console.log($scope.allOrgs)
 	})
 
 	/* until here */
@@ -266,12 +281,27 @@ app.controller('professionalController', function($scope, $window, appFactory) {
 
 	/* new code added on 18-09 */
 
+	$scope.allOrgs = [];
+
 	appFactory.getAllOrgs(function(data) {
+		console.log("Something is cooking.");
 		console.log(data);
+		for (var i = 0; i < data.length; i++) {
+			console.log(data[i])
+			var organization = {};
+			organization.key = data[i].Org;
+			var profile = data[i].Details.profile;
+			if (profile !== "NULL") {
+				var profileJSON = JSON.parse(profile)
+				var name = profileJSON.companyName;
+				organization.fullName = name;
+				$scope.allOrgs.push(organization);
+			}
+		}
+		console.log($scope.allOrgs)
 	})
 
 	/* until here */
-
 	$scope.keys = sessionStorage.getItem("keypair");
 
 	$scope.$watchCollection('keys', function(newVal, oldVal) {
@@ -307,6 +337,30 @@ app.controller('professionalController', function($scope, $window, appFactory) {
 })
 
 app.controller('profileController', function($scope, $window, appFactory){
+
+	/* new code added on 18-09 */
+
+	$scope.allOrgs = [];
+
+	appFactory.getAllOrgs(function(data) {
+		console.log("Something is cooking.");
+		console.log(data);
+		for (var i = 0; i < data.length; i++) {
+			console.log(data[i])
+			var organization = {};
+			organization.key = data[i].Org;
+			var profile = data[i].Details.profile;
+			if (profile !== "NULL") {
+				var profileJSON = JSON.parse(profile)
+				var name = profileJSON.companyName;
+				organization.fullName = name;
+				$scope.allOrgs.push(organization);
+			}
+		}
+		console.log($scope.allOrgs)
+	})
+
+	/* until here */
 	
 	$scope.getProfile = function() {
 		console.log("Fetching profile");
@@ -326,9 +380,13 @@ app.controller('profileController', function($scope, $window, appFactory){
 					if (data[i].Record.user == $scope.publicKey) {
 						var record = {};
 						var record_data = JSON.parse(data[i].Record.data);
+						for (var j = 0; j < $scope.allOrgs.length; j++) {
+							if ($scope.allOrgs[j].key == record_data.institute) {
+								record.org = $scope.allOrgs[j].fullName;
+							}
+						}
 						console.log("official" + record_data);
 						if (record_data.type == 1) {
-							record.org = record_data.institute;
 							record.grade = record_data.grade;
 							record.status = data[i].Record.Status;
 							record.marks = record_data.marks;
@@ -344,7 +402,6 @@ app.controller('profileController', function($scope, $window, appFactory){
 
 						if (record_data.type == 2){
 							record.title = record_data.title;
-							record.organization = record_data.institute;
 							record.status = data[i].Record.Status;
 							record.from = record_data.from;
 							if (!record_data.to) {

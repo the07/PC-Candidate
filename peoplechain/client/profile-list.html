@@ -108,14 +108,14 @@
                         <a href="educational-details.html" class="add_new float-right"><i class="fa fa-plus"></i> Add New</a>
                     </div>
                     <div class="full-width mt-3 pb-3 border-bottom" ng-repeat="record in education_details">
-                        <div class="grade_title">{{record.grade}} <button id="statusButton" class="verify_grade {{statusClass}}">{{record.status}}</button></div>
                         <div class="full-width mt-2">
                             <div class="edu_info_col">
                                 <div class="thumb_nail">
                                     <img src="assets/images/edu-logo.svg">
                                 </div>
                                 <div class="edu_info">
-                                    <div class="">{{record.org}}</div>
+                                    <div class="designation">{{record.grade}} <button id="statusButton" class="verify_grade {{statusClass}}">{{record.status}}</button></div>
+                                    <div class="profile_text">{{record.org}}</div>
                                     <div class="profile_text">{{record.join}} - {{record.finish}}</div>
                                 </div>
                             </div>
@@ -161,7 +161,7 @@
                                 </div>
                                 <div class="edu_info">
                                     <div class="designation">{{record.title}}<button id="statusButton2" class="verify_grade {{statusClass2}}">{{record.status}}</button></div>
-                                    <div class="profile_text">{{record.organization}}</div>
+                                    <div class="profile_text">{{record.org}}</div>
                                     <div class="profile_text">{{record.from}} - {{record.to}}</div>
                                     <div class="profile_text">{{record.location}}</div>
                                 </div>    

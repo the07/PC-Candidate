@@ -2,6 +2,12 @@
 
 set -ev
 
+docker-compose -f ./docker-compose.yaml up -d
+
+export FABRIC_START_TIMEOUT=10
+
+sleep ${FABRIC_START_TIMEOUT}
+
 #Create a channel
 docker exec cli peer channel create -o orderer.example.com:7050 -c mychannel -f channel-artifacts/channel.tx --tls --cafile /opt/gopath/src/github.com/hyperledger/fabric/peer/crypto/ordererOrganizations/example.com/orderers/orderer.example.com/msp/tlscacerts/tlsca.example.com-cert.pem
 #Add peer0.org1 to channel

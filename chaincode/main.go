@@ -855,7 +855,12 @@ func (s *PeoplechainChaincode) getAllOrgs(APIstub shim.ChaincodeStubInterface) s
 
 		orgsBuffer.WriteString("{\"Org\":")
 		orgsBuffer.WriteString("\"")
-		orgsBuffer.WriteString(orgsQueryResponse.Key)
+		_, orgKeyComp, orgKeyCompError := APIstub.SplitCompositeKey(orgsQueryResponse.Key)
+		if orgKeyCompError != nil {
+			return shim.Error(orgKeyCompError.Error())
+		}
+
+		orgsBuffer.WriteString(orgKeyComp[0])
 		orgsBuffer.WriteString("\"")
 
 		orgsBuffer.WriteString(", \"Details\":")
