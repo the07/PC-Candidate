@@ -118,9 +118,9 @@
                                         <span>private</span>
                                     </div>
                                 </div>
-                                <div class="verification_body">
-                                    <div class="verification_row" data-toggle="modal" data-target="#exampleModalCenter" ng-repeat="record in queue">
-                                        <div class="verification_col pl-3" style="overflow-wrap: break-word;">
+                                <div class="verification_body" ng-repeat="record in queue">
+                                    <div class="verification_row">
+                                        <div class="verification_col" style="overflow-wrap: break-word;">
                                             <div class="verif_img">
                                                 <img src="assets/images/profile-logo.svg">
                                             </div>
@@ -144,6 +144,10 @@
                                         <div class="verification_col">
                                             <div class="verification_field">{{record.private}}</div>
                                         </div>
+                                    </div>
+                                    <div class="verification_row">
+                                        <button class="save_btn float-left" ng-click="signRecord(record.index)"><i class="far fa-check-circle"></i> Verify</button>
+                                        <button class="delete_btn ml float-right" ng-click="declineRecord(record.index)"><i class="far fa-times-circle"></i> Reject</button>
                                     </div>
                                 </div>
                             </div>
@@ -258,7 +262,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<!-- <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <button type="button" class="close close_btn" data-dismiss="modal" aria-label="Close">
@@ -267,7 +271,7 @@
             <div class="modal-body">
                 <div class="">
                     <div class="full-width">
-                        <input type="text" class="form-control" placeholder="Enter Record Index to sign" ng-model="recordID">
+                        <input type="text" class="form-control" placeholder="Enter Record Index to sign" ng-model="recordID" ng-value={{record.id}}>
                         <button class="save_btn float-left" ng-click="signRecord()"><i class="far fa-check-circle"></i> Verify</button>
                         <button class="delete_btn ml float-right" ng-click="declineRecord()"><i class="far fa-times-circle"></i> Reject</button>
                     </div>
@@ -275,7 +279,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
 </body>
 <script type="text/javascript" src="app.js"> </script>

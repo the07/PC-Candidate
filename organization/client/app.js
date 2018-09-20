@@ -258,18 +258,16 @@ app.controller('requestController', function($scope, $window, appFactory){
 
 	console.log('Requesting for page');
 
-	$scope.signRecord = function() {
+	$scope.signRecord = function(id) {
 		console.log('Signing');
-		var id = $scope.recordID;
 		appFactory.signRecord(id, function(data){
 			console.log(data);
 		})
 	}
 	
 
-	$scope.declineRecord = function() {
+	$scope.declineRecord = function(id) {
 		console.log('Declined');
-		var id = $scope.recordID;
 		appFactory.declineRecord(id, function(data){
 			console.log(data);
 		})
