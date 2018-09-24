@@ -122,6 +122,8 @@ func (s *PeoplechainChaincode) Invoke(APIstub shim.ChaincodeStubInterface) sc.Re
 		return s.getAllRecordAccess(APIstub)
 	} else if function == "getAllOrgs" {
 		return s.getAllOrgs(APIstub)
+	} else if function == "getAllUsers" {
+		return s.getAllUsers(APIstub)
 	}
 
 	return shim.Error("Invalid function name")
@@ -875,6 +877,53 @@ func (s *PeoplechainChaincode) getAllOrgs(APIstub shim.ChaincodeStubInterface) s
 
 	return shim.Success(orgsBuffer.Bytes())
 }
+
+func (s *PeoplechainChaincode) getAllUsers(APIstub shim.ChaincodeStubInterface) sc.Response {
+	
+	allUserIterator, orgError := APIstub.GetStateByPartialCompositeKey("user", []string{})
+	if orgError != nil {
+		return shim.Error(orgError.Error())
+	}
+	
+	defer allUserIterator.Close()
+
+	var UserBuffer bytes.Buffer
+	UserBuffer.WriteString("[")
+
+	UserArrayMemberAlreadyWritten := false
+	for allUserIterator.HasNext() {
+		UserQueryResponse, orgError1 := allUserIterator.Next()
+		if orgError1 != nil {
+			return shim.Error(orgError1.Error())
+		}
+
+		if UserArrayMemberAlreadyWritten == true {
+			UserBuffer.WriteString(",")
+		}
+
+		UserBuffer.WriteString("{\"Org\":")
+		UserBuffer.WriteString("\"")
+		_, orgKeyComp, orgKeyCompError := APIstub.SplitCompositeKey(UserQueryResponse.Key)
+		if orgKeyCompError != nil {
+			return shim.Error(orgKeyCompError.Error())
+		}
+
+		UserBuffer.WriteString(orgKeyComp[0])
+		UserBuffer.WriteString("\"")
+
+		UserBuffer.WriteString(", \"Details\":")
+		UserBuffer.WriteString(string(UserQueryResponse.Value))
+		UserBuffer.WriteString("}")
+		UserArrayMemberAlreadyWritten = true
+	}
+
+	UserBuffer.WriteString("]")
+
+	fmt.Printf(" - allUser:\n%s\n", UserBuffer.String())
+
+	return shim.Success(UserBuffer.Bytes())
+}
+
 
 
 func main() {

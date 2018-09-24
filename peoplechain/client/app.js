@@ -267,7 +267,9 @@ app.controller('educationController', function($scope, $window, appFactory) {
 		if ($scope.education.finish) {
 			var finish = $scope.education.finish.toDateString();
 			$scope.education.finish = finish;
- 		}
+		 }
+		 
+		alert($scope.private);
 		appFactory.addRecord($scope.education, function(data) {
 			console.log(data);
 			if (data == 'SUCCESS') {

@@ -38,6 +38,10 @@ module.exports = function(app){
         peoplechain.get_request_access(req, res);
     })
 
+    app.get('/get_all_users/:user', function(req, res) {
+        peoplechain.get_all_users(req, res);
+    })
+
     /* app.get('/get_all_record', function(req, res){
         peoplechain.get_all_record(req, res);
     });

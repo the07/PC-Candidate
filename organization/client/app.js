@@ -107,6 +107,21 @@ app.controller('basicInfoController', function($scope, $window, appFactory) {
 });
 
 app.controller('profileController', function($scope, $window, appFactory){  
+
+	/* new code on 24-09 */
+
+	$scope.allUsers = [];
+	$scope.userList = []
+
+	appFactory.getAllUsers(function(data) {
+		console.log("Hello All Users");
+		console.log(JSON.parse(data[0].Details.profile));
+		console.log(data[0].Details.public_key);
+		$scope.allUsers = data;
+	})
+
+	/* until here */
+
     $scope.getProfile = function() {
         appFactory.getOrgsData(function(data){
 			console.log(data);
@@ -122,6 +137,12 @@ app.controller('profileController', function($scope, $window, appFactory){
 				for (var i = 0; i < data.length; i++) {
 					if (data[i].Record.organization == $scope.orgPub && data[i].Record.Status == "PENDING") {
 						var rec_data = JSON.parse(data[i].Record.data);
+						for (var j = 0; j < $scope.allUsers.length; j++) {
+							if (data[i].Record.user == $scope.allUsers[j].Details.public_key) {
+								var profile_json = JSON.parse($scope.allUsers[j].Details.profile)
+								data[i].Record.name = profile_json.firstName + " " + profile_json.lastName
+							}
+						}
 						if (rec_data.type == 1) {
 							data[i].Record.title = rec_data.grade;
 							data[i].Record.location = rec_data.location;
@@ -258,10 +279,23 @@ app.controller('requestController', function($scope, $window, appFactory){
 
 	console.log('Requesting for page');
 
+	$scope.allUsers = [];
+
+	appFactory.getAllUsers(function(data) {
+		console.log("Hello All Users");
+		console.log(JSON.parse(data[0].Details.profile));
+		console.log(data[0].Details.public_key);
+		$scope.allUsers = data;
+	})
+
 	$scope.signRecord = function(id) {
 		console.log('Signing');
 		appFactory.signRecord(id, function(data){
 			console.log(data);
+			if (data) {
+				alert("Record Signed with transaction id: " + data);
+				$window.location.reload();
+			}
 		})
 	}
 	
@@ -270,6 +304,10 @@ app.controller('requestController', function($scope, $window, appFactory){
 		console.log('Declined');
 		appFactory.declineRecord(id, function(data){
 			console.log(data);
+			if (data) {
+				alert("Record Declined with transaction id: " + data);
+				$window.location.reload();
+			}
 		})
 	}
 
@@ -290,6 +328,12 @@ app.controller('requestController', function($scope, $window, appFactory){
 				for (var i = 0; i < data.length; i++) {
 					if (data[i].Record.organization == $scope.orgPub && data[i].Record.Status == "PENDING") {
 						var rec_data = JSON.parse(data[i].Record.data);
+						for (var j = 0; j < $scope.allUsers.length; j++) {
+							if (data[i].Record.user == $scope.allUsers[j].Details.public_key) {
+								var profile_json = JSON.parse($scope.allUsers[j].Details.profile)
+								data[i].Record.name = profile_json.firstName + " " + profile_json.lastName
+							}
+						}
 						if (rec_data.type == 1) {
 							data[i].Record.index = parseInt(data[i].Key)
 							data[i].Record.title = rec_data.grade;
@@ -319,6 +363,12 @@ app.controller('requestController', function($scope, $window, appFactory){
 					}
 					if (data[i].Record.organization == $scope.orgPub && data[i].Record.Status == "SIGNED") {
 						var rec_data = JSON.parse(data[i].Record.data);
+						for (var j = 0; j < $scope.allUsers.length; j++) {
+							if (data[i].Record.user == $scope.allUsers[j].Details.public_key) {
+								var profile_json = JSON.parse($scope.allUsers[j].Details.profile)
+								data[i].Record.name = profile_json.firstName + " " + profile_json.lastName
+							}
+						}
 						if (rec_data.type == 1) {
 							data[i].Record.index = parseInt(data[i].Key)
 							data[i].Record.title = rec_data.grade;
@@ -348,6 +398,12 @@ app.controller('requestController', function($scope, $window, appFactory){
 					}
 					if (data[i].Record.organization == $scope.orgPub && data[i].Record.Status == "DECLINED") {
 						var rec_data = JSON.parse(data[i].Record.data);
+						for (var j = 0; j < $scope.allUsers.length; j++) {
+							if (data[i].Record.user == $scope.allUsers[j].Details.public_key) {
+								var profile_json = JSON.parse($scope.allUsers[j].Details.profile)
+								data[i].Record.name = profile_json.firstName + " " + profile_json.lastName
+							}
+						}
 						if (rec_data.type == 1) {
 							data[i].Record.index = parseInt(data[i].Key)
 							data[i].Record.title = rec_data.grade;
@@ -387,7 +443,14 @@ app.controller('requestController', function($scope, $window, appFactory){
 
 app.factory('appFactory', function($http){
     
-    var factory = {};
+	var factory = {};
+	
+	factory.getAllUsers = function(callback){
+		var org = sessionStorage.getItem("organization");
+		$http.get('/get_all_users/'+org).success(function(output) {
+			callback(output)
+		});
+	} 
 
     factory.registerUser = function(data, callback) {
         var user_data = data.url + "-" + data.password;

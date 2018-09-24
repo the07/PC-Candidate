@@ -62,10 +62,13 @@
                         <a class="dropdown-item" href="#">Something else here</a>
                     </div>
                 </div>
-                <div class="float-right notification_icon">
-                    <img src="assets/images/Notification.svg">
+                <div class="">
+                    <input type="text" name="example" list="exampleList" placeholder="Search User" class="form-control" style="width:250px;">
+                    <datalist id="exampleList">
+                        <option ng-repeat="user in userList" value="user.key">{{user.name}}</option>
+                    </datalist>
                 </div>
-            </div>
+            </div>  
         </div>
     </div>
     <div class="org_profile_block">
@@ -149,7 +152,7 @@
                                         <img src="assets/images/profile-logo.svg">
                                     </div>
                                     <div class="verif_info">
-                                        <div class="emp_name">{{record.user}}</div>
+                                        <div class="emp_name" style="font-size: 16px">{{record.name}}</div>
                                         <small></small>
                                     </div>
                                 </div>

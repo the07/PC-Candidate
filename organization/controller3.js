@@ -38,6 +38,58 @@ var user_data = {};
 
 module.exports = (function() {
     return {
+        get_all_users: function(req, res) {
+            
+            var user = req.params.user;
+            var member_user = null;
+            var tx_id = null;
+            Fabric_Client.newDefaultKeyValueStore({ path: store_path
+            }).then((state_store) => {
+                fabric_client.setStateStore(state_store);
+                var crypto_suite = Fabric_Client.newCryptoSuite();
+
+                var crypto_store = Fabric_Client.newCryptoKeyStore({path: store_path});
+                crypto_suite.setCryptoKeyStore(crypto_store);
+                fabric_client.setCryptoSuite(crypto_suite);
+
+                return fabric_client.getUserContext(user, true);
+
+            }).then((user_from_store) => {
+                if (user_from_store && user_from_store.isEnrolled()) {
+                console.log('Successfully loaded user from persistence');
+                member_user = user_from_store;
+                } else {
+                throw new Error('FAiled to get user, register user first');
+                }
+
+                const request = {
+                chaincodeId: 'peoplechain',
+                txId: tx_id,
+                fcn: 'getAllUsers',
+                args: []
+                };
+
+                return channel.queryByChaincode(request);
+            }).then((query_responses) => {
+                console.log("Query has completed cheching results");
+
+                if (query_responses && query_responses.length == 1) {
+                if (query_responses[0] instanceof Error) {
+                    console.error("error from query = ", query_responses[0]);
+                    res.send("Not found ")
+                } else {
+                    console.log("Response is ", query_responses[0].toString());
+                    res.json(JSON.parse(query_responses[0].toString()));
+                }
+                } else {
+                console.log("No payloads were returned from the query");
+                res.send("Could not find any organization details");
+                }
+            }).catch((err) => {
+                console.error('Failed to query successfully :: ' + err);
+                res.send("Could not find any organization details .");
+            });
+        },
         register_user: function(req, res) {
             var array = req.params.user.split("-");
             var member_user = null;
