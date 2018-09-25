@@ -111,14 +111,29 @@ app.controller('profileController', function($scope, $window, appFactory){
 	/* new code on 24-09 */
 
 	$scope.allUsers = [];
-	$scope.userList = []
+	$scope.userList = [];
 
 	appFactory.getAllUsers(function(data) {
 		console.log("Hello All Users");
+		var userList = [];
+		$scope.allUsers = data;
+		for (var k = 0; k < data.length; k++) {
+			var user = {};
+			user.profile = JSON.parse(data[k].Details.profile);
+			user.name = user.profile.firstName + " " + user.profile.lastName;
+			user.pubkey = data[k].Details.public_key;
+			$scope.userList.push(user);
+		}
+		console.log('All users: ' + $scope.userList);
 		console.log(JSON.parse(data[0].Details.profile));
 		console.log(data[0].Details.public_key);
-		$scope.allUsers = data;
 	})
+
+	$scope.viewProfile = function(e) {
+		if (e.which === 13) {
+			alert('Hello');
+		}
+	}
 
 	/* until here */
 
@@ -236,7 +251,7 @@ app.controller('accessController', function($scope, $window, appFactory) {
 					}
 				}
 				$scope.all = array;
-				console.log("Connectted Records:" + array[0].data);
+				console.log("Connectted Records:" + array);
 			})
 		})
 

@@ -18,7 +18,7 @@ type Record struct {
 	User string `json:"user"`						// Record Owner Public Key
 	Organization string `json:"organization"`		// Signing entity Public Key
 	Status string `json:"status`					// Status of the record - if signed
-	Hash string `json:"hash"`						// Hash of the content of the record
+	Hash string `json:"hash"`						// Hash of the private content of the record
 	Data string `json:"data"`						// Public data
 	//CreationTime time.Time `json:"creation_time"` // Time when record was created
 }

@@ -7,13 +7,13 @@
 # Exit on first error, print all commands.
 set -e
 
+# remove the local state
+rm -f ~/.hfc-key-store/*
+
 # Shut down the Docker containers for the system tests.
 docker-compose -f docker-compose.yaml kill && docker-compose -f docker-compose.yaml down --volumes
 
 docker rm -f $(docker ps -aq)
-
-# remove the local state
-rm -f ~/.hfc-key-store/*
 
 # remove chaincode docker images
 docker rmi $(docker images peer* -q)

@@ -63,9 +63,9 @@
                     </div>
                 </div>
                 <div class="">
-                    <input type="text" name="example" list="exampleList" placeholder="Search User" class="form-control" style="width:250px;">
+                    <input type="text" name="example" list="exampleList" placeholder="Search User" class="form-control" style="width:250px;" ng-keypress="viewProfile($event)">
                     <datalist id="exampleList">
-                        <option ng-repeat="user in userList" value="user.key">{{user.name}}</option>
+                        <option ng-repeat="user in userList" value="{{user.pubkey}}">{{user.name}}</option>
                     </datalist>
                 </div>
             </div>  
