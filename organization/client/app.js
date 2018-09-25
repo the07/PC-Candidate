@@ -131,7 +131,7 @@ app.controller('profileController', function($scope, $window, appFactory){
 
 	$scope.viewProfile = function(e) {
 		if (e.which === 13) {
-			alert('Hello');
+			alert($scope.selectedProfile);
 		}
 	}
 
