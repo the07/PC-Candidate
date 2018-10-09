@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+     <!--Font  Awesome icons-->
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+ 
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.3/angular.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+ 
+     <link href="assets/css/custom.css" rel="stylesheet">
+     <!-- web fonts -->
+     <link href="assets/webfonts/stylesheet.css" rel="stylesheet">
+</head>
+<body ng-app="application" ng-controller="userProfileController" ng-init="getUser()">
+<div class="full-width">
+    <div class="full-width">
+        <div class="col-md-4 col-sm-4 col-xl-4 float-left">
+            <div class="logo">
+                <img src="assets/images/pc-logo-login.svg">
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xl-4 float-left">
+            <div class="full-width">
+                
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-4 col-xl-4 float-right mt-3">
+            <div class="dropdown float-right">
+                <div class="profile_dropdown dropdown-toggle">
+                    <img src="assets/images/hep-top-right-logo.svg">
+                </div>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </div>
+            <div class="float-right notification_icon">
+                <img src="assets/images/Notification.svg">
+            </div>
+        </div>
+    </div>
+    <div class="profile_list_block">
+        <div class="profile_list_row">
+            <div class="profile_section">
+                <div class="float-left profile_list_col profile_info_col">
+                    <span class="profile_edit"><img src="assets/images/Edit 20 px.svg"></span>
+                    <div class="profile_thumb">
+                       <!--  <img src="assets/images/Profile thumbnail.svg"> -->
+                    </div>
+                    <div class="profile_info">
+                        <div class="profile_name">{{current_user.profile.firstName + " " + current_user.profile.lastName}}</div>
+                        <div class="profile_text">{{current_user.profile.address}}</div>
+                        <!-- <div class="profile_text">arivoli@heptagon.in</div>
+                        <div class="profile_text">7890455991</div> -->
+                        <div class="profile_text">{{current_user.profile.dob}}</div>
+                        <div class="socila_col">
+                            <ul class="profile_social_menu">
+                                <li><img src="assets/images/fb_profile.svg"></li>
+                                <li><img src="assets/images/twitter-profile.svg"></li>
+                                <li><img src="assets/images/linkedin-profile.svg"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="float-left profile_list_col pub-key-col">
+                    <div class="full-width">
+                        <div class="profile_name">Public key</div>
+                        <div class="pub-key-info">{{current_user.Details.public_key}}</div>
+                    </div>
+                    <div class="pct-col">
+                        <span class="pct_title float-left">Pct <br> <small>Peoplechain Tockens</small></span>
+                        <span class="float-right summary">Summary</span>
+                        <div class="pub-key-info pct-info">0</div>
+                    </div>
+                </div>
+                <div class="float-right profile_list_col qr-col">
+                    <div class="qr-icon"><img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=publicKey"></div>
+                    <span class="full-width text-center qr-info">Scan this QR Code for more details</span>
+                </div>
+            </div>
+            <div class="edu_section">
+                <div class="edu_col" id="education_details">
+                    <div class="col-md-6 col-sm-6 col-xl-6 float-left no-padding">
+                        <h2 class="edu_title">Educational Details</h2>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xl-6 float-right">
+                    </div>
+                    <div class="full-width mt-3 pb-3 border-bottom" ng-repeat="record in education_details">
+                        <div class="full-width mt-2">
+                            <div class="edu_info_col">
+                                <div class="thumb_nail">
+                                    <img src="assets/images/edu-logo.svg">
+                                </div>
+                                <div class="edu_info">
+                                    <div class="designation">{{record.grade}} <button id="statusButton" class="verify_grade {{record.statusClass}}">{{record.status}}</button></div>
+                                    <div class="profile_text">{{record.org}}</div>
+                                    <div class="profile_text">{{record.join}} - {{record.finish}}</div>
+                                </div>
+                            </div>
+                            <div class="percentage_col">
+                                <div class="percentage_row">
+                                    <h4 class="percentage">{{record.private}}%</h4>
+                                    <p class="marks_info">Marks Scored</p>
+                                </div>
+                            </div>
+                            <div class="documents_col position-relative">
+                                <div class="docs_list">
+                                    <div class="image_list">
+                                        <button class="save_btn float-left" ng-click="requestRecord(record.index)" ng-hide="{{record.hide}}">Request Marks</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="edu_section">
+                <div class="edu_col" id="professional_details">
+                    <div class="col-md-6 col-sm-6 col-xl-6 float-left no-padding">
+                        <h2 class="edu_title">Professional Details</h2>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xl-6 float-right">
+                    </div>
+                    <div class="full-width mt-3 pb-3 border-bottom" ng-repeat="record in professional_details">
+                        <div class="full-width mt-2">
+                            <div class="edu_info_col">
+                                <div class="thumb_nail">
+                                    <img src="assets/images/edu-logo.svg">
+                                </div>
+                                <div class="edu_info">
+                                    <div class="designation">{{record.title}}<button id="statusButton2" class="verify_grade {{record.statusClass2}}">{{record.status}}</button></div>
+                                    <div class="profile_text">{{record.org}}</div>
+                                    <div class="profile_text">{{record.from}} - {{record.to}}</div>
+                                    <div class="profile_text">{{record.location}}</div>
+                                </div>    
+                            </div>
+                            <div class="percentage_col">
+                                <div class="percentage_row">
+                                    <h4 class="percentage">{{record.private}} INR</h4>
+                                    <p class="marks_info">Annual CTC</p>
+                                </div>
+                            </div>
+                            <div class="documents_col position-relative">
+                                
+                                <div class="docs_list mt-2">
+                                    <div class="image_list">
+                                        <button class="save_btn float-left" ng-click="requestRecord(record.index)" ng-hide="{{record.hide}}">Request Salary</button>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="edu_section">
+                <div class="edu_col">
+                    <div class="col-md-6 col-sm-6 col-xl-6 float-left no-padding">
+                        <h2 class="edu_title">Skills & Endorsement</h2>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xl-6 float-right">
+                        <span class="float-right ml-3"><img  class="edit_skills" src="assets/images/Edit 20 px.svg"></span>
+                        <button class="add_new float-right" (click)="addNewSkills()"><i class="fa fa-plus"></i> Add New</button>
+                    </div>
+                    <div class="full-width mt-3 pb-3">
+                        <div class="full-width mb-2">
+                            <div class="skill_name_col">
+                                <div class="skill_name">Graphic Designer (255)</div>
+                            </div>
+                            <div class="skill_status_col">
+                                <div class="status_img">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar-unfilled.svg">
+                                </div>
+                            </div>
+                            <div class="skill_rating_col">
+                                <span>4.5</span>
+                            </div>
+                            <div class="skill_profile">
+                                <div class="rated_profile">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="full-width mb-2">
+                            <div class="skill_name_col">
+                                <div class="skill_name">User Interface Designing (300)</div>
+                            </div>
+                            <div class="skill_status_col">
+                                <div class="status_img">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar-unfilled.svg">
+                                    <img src="assets/images/progressbar-unfilled.svg">
+                                </div>
+                            </div>
+                            <div class="skill_rating_col">
+                                <span>3.0</span>
+                            </div>
+                            <div class="skill_profile">
+                                <div class="rated_profile">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="full-width mb-2">
+                            <div class="skill_name_col">
+                                <div class="skill_name">User Experience Designiner (500)</div>
+                            </div>
+                            <div class="skill_status_col">
+                                <div class="status_img">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar-unfilled.svg">
+                                </div>
+                            </div>
+                            <div class="skill_rating_col">
+                                <span>3.0</span>
+                            </div>
+                            <div class="skill_profile">
+                                <div class="rated_profile">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="full-width mb-2">
+                            <div class="skill_name_col">
+                                <div class="skill_name">Illustrator (300)</div>
+                            </div>
+                            <div class="skill_status_col">
+                                <div class="status_img">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar-unfilled.svg">
+                                </div>
+                            </div>
+                            <div class="skill_rating_col">
+                                <span>3.0</span>
+                            </div>
+                            <div class="skill_profile">
+                                <div class="rated_profile">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="full-width mb-2">
+                            <div class="skill_name_col">
+                                <div class="skill_name">Affinity (150)</div>
+                            </div>
+                            <div class="skill_status_col">
+                                <div class="status_img">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                    <img src="assets/images/progressbar_filled.svg">
+                                </div>
+                            </div>
+                            <div class="skill_rating_col">
+                                <span>4.0</span>
+                            </div>
+                            <div class="skill_profile">
+                                <div class="rated_profile">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+                                    <img src="assets/images/profile-logo.svg">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Edit Under Graduation Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="full-width">
+                    <div class="form-group">
+                        <label>College Name</label>
+                        <input class="form-control" placeholder="Maharaja Engineering College">
+                    </div>
+                    <div class="form-group">
+                        <label>Degree</label>
+                        <input class="form-control" placeholder="Bachelor Of Technology">
+                    </div>
+                    <div class="form-group">
+                        <label>Field Of Study</label>
+                        <input class="form-control" placeholder="Inforamation Technology">
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-6 col-sm-6 col-xl-6 float-left p-0 pr-2">
+                            <div class="form-group">
+                                <label>From Year</label>
+                                <select class="form-control">
+                                    <option>2011</option>
+                                    <option>2012</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xl-6 float-left p-0 pl-2">
+                            <div class="form-group">
+                                <label>To Year</label>
+                                <input class="form-control" placeholder="2019">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Grade/ Marks Secured</label>
+                        <input class="form-control" placeholder="Inforamation Technology">
+                    </div>
+                    <div class="form-group">
+                        <span class="float-left">Documents</span>
+                        <div class="float-right">
+
+                        </div>
+                        <div class="full-width">
+                            <div class="upload_img">
+                                <img src="assets/images/edu-docu.svg">
+                            </div>
+                            <div class="upload_img">
+                                <img src="assets/images/edu-docu1.svg">
+                            </div>
+                            <div class="upload_file">
+                                <span><i class="fas fa-plus-circle"></i></span>
+                                <span>Add More</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="full-width">
+                    <div class="delete_btn float-left" data-dismiss="modal">Delete</div>
+                    <div class="save_btn float-right">Save</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle1">Edit 12th Grade Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="full-width">
+                    <div class="form-group">
+                        <label>Institution Name</label>
+                        <input class="form-control" placeholder="Siv Matriculation Higher Secondary School, Sirummugai">
+                    </div>
+                    <div class="form-group">
+                        <label>Passed Out Year</label>
+                        <select class="form-control" required formControlName="passoutyear1">
+                            <option>2019</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Grade/ Marks Secured</label>
+                        <input class="form-control" placeholder="82%">
+                    </div>
+                    <div class="form-group">
+                        <span class="float-left">Documents</span>
+                        <div class="float-right">
+
+                        </div>
+                        <div class="full-width">
+                            <div class="upload_img">
+                                <img src="assets/images/edu-docu.svg">
+                            </div>
+                            <div class="upload_img">
+                                <img src="assets/images/edu-docu1.svg">
+                            </div>
+                            <div class="upload_file">
+                                <span><i class="fas fa-plus-circle"></i></span>
+                                <span>Add More</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="full-width">
+                    <div class="delete_btn float-left" data-dismiss="modal">Delete</div>
+                    <div class="save_btn float-right">Save</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="exampleModalCenter2" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle2" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle2">Edit 10th Grade Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="full-width">
+                    <div class="form-group">
+                        <label>Institution Name</label>
+                        <input class="form-control" placeholder="Siv Matriculation Higher Secondary School, Sirummugai">
+                    </div>
+                    <div class="form-group">
+                        <label>Passed Out Year</label>
+                        <select class="form-control" required formControlName="passoutyear1">
+                            <option>2019</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Grade/ Marks Secured</label>
+                        <input class="form-control" placeholder="82%">
+                    </div>
+                    <div class="form-group">
+                        <span class="float-left">Documents</span>
+                        <div class="float-right">
+
+                        </div>
+                        <div class="full-width">
+                            <div class="upload_img">
+                                <img src="assets/images/edu-docu.svg">
+                            </div>
+                            <div class="upload_img">
+                                <img src="assets/images/edu-docu1.svg">
+                            </div>
+                            <div class="upload_file">
+                                <span><i class="fas fa-plus-circle"></i></span>
+                                <span>Add More</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="full-width">
+                    <div class="delete_btn float-left" data-dismiss="modal">Delete</div>
+                    <div class="save_btn float-right">Save</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" src="app.js"> </script>
+</html>

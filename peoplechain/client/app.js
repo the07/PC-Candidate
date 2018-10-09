@@ -456,17 +456,27 @@ app.controller('accessController', function($scope, $window, appFactory) {
 		})
 	}
 
-	$scope.allowAccess = function() {
+	$scope.allow = {};
+
+	$scope.allowAccess = function(id, org) {
 		console.log("Allowing access")
+		$scope.allow.organizationKey = org;
+		$scope.allow.recordID = id;
 		appFactory.allowAccess($scope.allow, function(data) {
 			console.log(data);
+			alert(data);
+			$window.location.reload();
 		})
 	}
 
-	$scope.declineAccess = function() {
+	$scope.declineAccess = function(id, org) {
 		console.log('Decline access')
+		$scope.allow.organizationKey = org;
+		$scope.allow.recordID = id;
 		appFactory.declineAccess($scope.allow, function(data) {
 			console.log(data);
+			alert(data);
+			$window.location.reload();
 		})
 	}
 })

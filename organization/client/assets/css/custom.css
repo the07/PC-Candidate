@@ -573,6 +573,14 @@ button:focus {
 .inpregress {
     background: #F7A400;
 }
+
+.declined {
+    background: #FF0000;
+}
+
+.signed {
+    background: #4AB847;
+}
 .thumb_nail {
     float: left;
     width: 90px;

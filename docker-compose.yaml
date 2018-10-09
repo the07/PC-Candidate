@@ -76,7 +76,7 @@ services:
       - CORE_PEER_ENDORSER_ENABLED=true
       - CORE_PEER_COMMITTER_LEDGER_ORDERER=orderer.example.com:7050
       - CORE_PEER_LOCALMSPID=Org1MSP
-      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=pc-candidate_my-net
+      - CORE_VM_DOCKER_HOSTCONFIG_NETWORKMODE=pccandidate_my-net
     working_dir: /opt/gopath/src/github.com/hyperledger/fabric/peer
     command: peer node start
     volumes:

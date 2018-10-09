@@ -38,6 +38,61 @@ var user_data = {};
 
 module.exports = (function() {
     return {
+
+        get_all_orgs: function(req, res) {
+
+            var user = req.params.user;
+            var member_user = null;
+            var tx_id = null;
+            Fabric_Client.newDefaultKeyValueStore({ path: store_path
+            }).then((state_store) => {
+              fabric_client.setStateStore(state_store);
+              var crypto_suite = Fabric_Client.newCryptoSuite();
+      
+              var crypto_store = Fabric_Client.newCryptoKeyStore({path: store_path});
+              crypto_suite.setCryptoKeyStore(crypto_store);
+              fabric_client.setCryptoSuite(crypto_suite);
+      
+              return fabric_client.getUserContext(user, true);
+      
+            }).then((user_from_store) => {
+              if (user_from_store && user_from_store.isEnrolled()) {
+                console.log('Successfully loaded user from persistence');
+                member_user = user_from_store;
+              } else {
+                throw new Error('FAiled to get user, register user first');
+              }
+      
+              const request = {
+                chaincodeId: 'peoplechain',
+                txId: tx_id,
+                fcn: 'getAllOrgs',
+                args: []
+              };
+      
+              return channel.queryByChaincode(request);
+            }).then((query_responses) => {
+              console.log("Query has completed cheching results");
+      
+              if (query_responses && query_responses.length == 1) {
+                if (query_responses[0] instanceof Error) {
+                  console.error("error from query = ", query_responses[0]);
+                  res.send("Not found ")
+                } else {
+                  
+                  res.json(JSON.parse(query_responses[0].toString()));
+                }
+              } else {
+                console.log("No payloads were returned from the query");
+                res.send("Could not find any organization details");
+              }
+            }).catch((err) => {
+              console.error('Failed to query successfully :: ' + err);
+              res.send("Could not find any organization details .");
+            });
+      
+          },
+          
         get_all_users: function(req, res) {
             
             var user = req.params.user;
@@ -78,7 +133,6 @@ module.exports = (function() {
                     console.error("error from query = ", query_responses[0]);
                     res.send("Not found ")
                 } else {
-                    console.log("Response is ", query_responses[0].toString());
                     res.json(JSON.parse(query_responses[0].toString()));
                 }
                 } else {
@@ -202,7 +256,7 @@ module.exports = (function() {
                 isProposalGood = true;
                 console.log('Transaction proposal was good');
                 var keys = proposalResponses[0].response.payload.toString();
-                console.log(proposalResponses[0].response.payload.toString());
+                
                 res.json(JSON.parse(keys));
                 } else {
                 console.error('Transaction proposal was bad');
@@ -281,7 +335,7 @@ module.exports = (function() {
             var array = req.params.data.split("-");
             var url = array[1];
             var key = array[0];
-            console.log(url);
+            
             var data = array[2];
             var member_user = null;
             var tx_id = null;
@@ -308,7 +362,7 @@ module.exports = (function() {
 
                 tx_id = fabric_client.newTransactionID();
                 console.log("Assigning transaction id: ", tx_id._transaction_id);
-                console.log(data);
+                
 
 
                 var request = {
@@ -397,7 +451,7 @@ module.exports = (function() {
                 }
             }).then((results) => {
                 console.log('Send transaction promise and event listener promise have completed');
-                console.log(results);
+                
                 if (results && results[0] && results[0].status === 'SUCCESS') {
                 console.log('Successfully sent transaction to the orderer.');
                 } else {
@@ -458,7 +512,7 @@ module.exports = (function() {
                     console.error("error from query = ", query_responses[0]);
                     res.send("Could not locate record")
                 } else {
-                    console.log("Response is ", query_responses[0].toString());
+                    
                     res.send(query_responses[0].toString());
                 }
                 } else {
@@ -509,7 +563,7 @@ module.exports = (function() {
                 if (query_responses[0] instanceof Error) {
                   consoe.error("Error from query: ", query_responses[0]);
                 } else {
-                  console.log("Response is ", query_responses[0].toString());
+                  
                   res.json(JSON.parse(query_responses[0].toString()));
                 }
               } else {
@@ -573,7 +627,7 @@ module.exports = (function() {
                     proposalResponses[0].response.status === 200) {
                         isProposalGood = true;
                         console.log('Transaction proposal was good');
-                        console.log(proposalResponses[0].response.payload.toString())
+                       
                     } else {
                         console.error('Transaction proposal was bad');
                     }
@@ -717,7 +771,7 @@ module.exports = (function() {
                     proposalResponses[0].response.status === 200) {
                         isProposalGood = true;
                         console.log('Transaction proposal was good');
-                        console.log(proposalResponses[0].response.payload.toString())
+                        
                     } else {
                         console.error('Transaction proposal was bad');
                     }
@@ -864,7 +918,7 @@ module.exports = (function() {
                     proposalResponses[0].response.status === 200) {
                         isProposalGood = true;
                         console.log('Transaction proposal was good');
-                        console.log(proposalResponses[0].response.payload.toString())
+                        
                     } else {
                         console.error('Transaction proposal was bad');
                     }
@@ -994,7 +1048,7 @@ module.exports = (function() {
                 if (query_responses[0] instanceof Error) {
                   consoe.error("Error from query: ", query_responses[0]);
                 } else {
-                  console.log("Response is ", query_responses[0].toString());
+                  
                   res.json(JSON.parse(query_responses[0].toString()));
                 }
               } else {

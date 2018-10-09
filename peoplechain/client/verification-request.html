@@ -28,18 +28,19 @@
         </div>
         <div class="col-md-4 col-sm-4 col-xl-4 float-left">
             <div class="full-width">
-                <ul class="profile_menu">
+                <ul class="profile_menu mobile_menu">
                     <a href="profile-list.html">
                         <li>
                             <img src="assets/images/profile-icon-active.svg">
                             Profile
                         </li>
                     </a>
-                    <a><li class="active">
-                        <img src="assets/images/Lock.svg">
-                        Requests
-                    </li>
-                    </a>
+                    
+                        <li class="active">
+                            <img src="assets/images/Lock.svg">
+                            Requests
+                        </li>
+                    
                 </ul>
             </div>
         </div>
@@ -67,7 +68,7 @@
                 <div class="jobs_block">
                     <div class="full-width p-3">
                         <div class="full-width mb-2">
-                            <h4 class="float-left cmp_title" ng-bind="queue"></h4>
+                            <h4 class="float-left cmp_title"></h4>
                         </div>
                     </div>
                     <div class="tab-content">
@@ -82,7 +83,7 @@
                                     </div>
                                 </div>
                                 <div class="verification_body">
-                                    <div class="verification_row" data-toggle="modal" data-target="#exampleModalCenter" ng-repeat="record in queue">
+                                    <div class="verification_row" ng-repeat="record in queue">
                                         <div class="verification_col pl-3" style="overflow-wrap: break-word;">
                                             <div class="verif_img">
                                                 <img src="assets/images/profile-logo.svg">
@@ -94,6 +95,8 @@
                                         <div class="verification_col">
                                             <div class="verification_field">{{record.organization}}</div>
                                         </div>
+                                        <button class="save_btn float-right" ng-click="allowAccess(record.index, record.organization)" style="margin-left:10px;margin-right:10px;">Accept</button>
+                                        <button class="delete_btn float-right" ng-click="declineAccess(record.index, record.organization)">Reject</button>
                                     </div>
                                 </div>
                             </div>
@@ -113,8 +116,8 @@
             <div class="modal-body">
                 <div class="">
                     <div class="full-width">
-                        <input type="text" class="form-control" placeholder="Enter Record Index to sign" ng-model="allow.recordID">
-                        <input type="text" class="form-control" placeholder="Organization Key" ng-model="allow.organizationKey">
+                        <input type="text" class="form-control" placeholder="Enter Record Index to sign">
+                        <input type="text" class="form-control" placeholder="Organization Key">
                         <button class="save_btn float-left" ng-click="allowAccess()"><i class="far fa-check-circle"></i> Allow</button>
                         <button class="delete_btn ml float-right" ng-click="declineAccess()"><i class="far fa-times-circle"></i> Reject</button>
                     </div>

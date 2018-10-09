@@ -106,6 +106,196 @@ app.controller('basicInfoController', function($scope, $window, appFactory) {
 	}
 });
 
+app.controller('userProfileController', function($scope, $location, appFactory) {
+
+	$scope.requestRecord = function(index) {
+		appFactory.requestAccess(index, function(data){
+			console.log(data);
+			alert(data);
+		})
+	}
+
+	var	keys = sessionStorage.getItem("orgKeys");
+	$scope.publicKey = JSON.parse(keys).pubkey;
+	console.log('Hey there' + $scope.publicKey);
+	$scope.getUser = function() {
+
+		$scope.allOrgs = [];
+
+		appFactory.getAllOrgs(function(data) {
+			console.log("Something is cooking.");
+			console.log(data);
+			for (var i = 0; i < data.length; i++) {
+				console.log(data[i])
+				var organization = {};
+				organization.key = data[i].Org;
+				var profile = data[i].Details.profile;
+				if (profile !== "NULL") {
+					var profileJSON = JSON.parse(profile)
+					var name = profileJSON.companyName;
+					organization.fullName = name;
+					$scope.allOrgs.push(organization);
+				}
+			}
+			console.log($scope.allOrgs)
+		})
+		console.log($location.search().id);
+		var id = $location.search().id;
+		$scope.allUsers = [];
+		$scope.currentUser = {};
+		$scope.access_array = [];
+
+		appFactory.getRecordAccess(function(data) {
+			for (var i = 0; i < data.length; i++) {
+				var keys = data[i].Key.split("-")
+				var access_data = {};
+				access_data.index = keys[1]
+				if (data[i].Access.data !== "ENCRYPTED") {
+					var unencrypted = JSON.parse(data[i].Access.data)
+					if (unencrypted.type == 1) {
+						access_data.data = unencrypted.marks
+					} else {
+						access_data.data = unencrypted.salary
+					}
+				} else {
+					access_data.data = "XXXXXXXXXXXX"
+				}
+				$scope.access_array.push(access_data)
+			}
+			console.log("Access on user page " + $scope.access_array);
+		})
+
+		appFactory.getAllUsers(function(data) {
+			console.log("Hello All Users");
+			var userList = [];
+			$scope.allUsers = data; 	
+			for (var k = 0; k < data.length; k++) {
+				if (data[k].Details.public_key == id) {
+					$scope.current_user = data[k];
+					$scope.current_user.profile = JSON.parse($scope.current_user.Details.profile);
+					var array = [];
+					var pro_array = [];
+					appFactory.queryAllRecord(function(data) {
+						console.log("Querying: " + data);
+						for (var i=0; i < data.length; i++) {
+							console.log("Looking for profile" + id)
+							if (data[i].Record.user == id) {
+								console.log("Reached here")
+								var record = {};
+								var record_data = JSON.parse(data[i].Record.data);
+								for (var j = 0; j < $scope.allOrgs.length; j++) {
+									if ($scope.allOrgs[j].key == record_data.institute) {
+										record.org = $scope.allOrgs[j].fullName;
+									}
+								}
+								console.log("official" + record_data);
+								console.log(data[i].Record.organization + " " +  $scope.publicKey)
+								if (data[i].Record.organization == $scope.publicKey) {
+									if (record_data.type == 1) {
+										record.hide = true;										
+										record.index = record_data.index;
+										record.grade = record_data.grade;
+										record.status = data[i].Record.Status;
+										record.private = record_data.marks;
+										record.join = record_data.join;
+										record.finish = record_data.finish;
+										if (record.status == "PENDING") {
+											record.statusClass = "inpregress";
+										} else if (record.status == "DECLINED") {
+											record.statusClass = "declined";
+										} else if (record.status == "SIGNED") {
+											record.statusClass = "signed";
+										}
+										array.push(record);
+									}
+		
+									if (record_data.type == 2){
+										record.hide = true;
+										record.index = record_data.index;
+										record.title = record_data.title;
+										record.status = data[i].Record.Status;
+										record.from = record_data.from;
+										if (!record_data.to) {
+											record.to = "Present";
+										} else {
+											record.to = record_data.to;
+										}
+										record.location = record_data.location;
+										record.private = record_data.salary;
+										if (record.status == "PENDING") {
+											record.statusClass2 = "inpregress";
+										} else if (record.status == "SIGNED") {
+											console.log(record.status + record.title);
+											record.statusClass2 = "signed";
+										} else {
+											console.log(record.status + record.title)
+											record.statusClass2 = "declined";
+										}
+										pro_array.push(record);
+									}
+
+								} else {
+									record.private = "XXXXXXXXXXXX";
+									for (var m = 0; m < $scope.access_array.length; m++) {
+										if (record_data.index == $scope.access_array[m].index) {
+											record.private = $scope.access_array[m].data;
+											record.hide = true;
+										}
+									}
+									if (record_data.type == 1) {
+										record.index = record_data.index;
+										record.grade = record_data.grade;
+										record.status = data[i].Record.Status;
+										record.join = record_data.join;
+										record.finish = record_data.finish;
+										if (record.status == "PENDING") {
+											record.statusClass = "inpregress";
+										} else if (record.status == "DECLINED") {
+											record.statusClass = "declined";
+										} else if (record.status == "SIGNED") {
+											record.statusClass = "signed";
+										}
+										array.push(record);
+									}
+		
+									if (record_data.type == 2){
+										record.index = record_data.index;
+										record.title = record_data.title;
+										record.status = data[i].Record.Status;
+										record.from = record_data.from;
+										if (!record_data.to) {
+											record.to = "Present";
+										} else {
+											record.to = record_data.to;
+										}
+										record.location = record_data.location;
+										if (record.status == "PENDING") {
+											record.statusClass2 = "inpregress";
+										} else if (record.status == "SIGNED") {
+											
+											record.statusClass2 = "signed";
+										} else {
+											
+											record.statusClass2 = "declined";
+										}
+										pro_array.push(record);
+									}
+
+								}
+							}
+						}
+					})
+					
+				}
+			}
+
+			$scope.education_details = array;
+			$scope.professional_details = pro_array;
+
+		})
+	}
+});
+
 app.controller('profileController', function($scope, $window, appFactory){  
 
 	/* new code on 24-09 */
@@ -116,7 +306,7 @@ app.controller('profileController', function($scope, $window, appFactory){
 	appFactory.getAllUsers(function(data) {
 		console.log("Hello All Users");
 		var userList = [];
-		$scope.allUsers = data;
+		$scope.allUsers = data; 	
 		for (var k = 0; k < data.length; k++) {
 			var user = {};
 			user.profile = JSON.parse(data[k].Details.profile);
@@ -124,14 +314,17 @@ app.controller('profileController', function($scope, $window, appFactory){
 			user.pubkey = data[k].Details.public_key;
 			$scope.userList.push(user);
 		}
-		console.log('All users: ' + $scope.userList);
-		console.log(JSON.parse(data[0].Details.profile));
-		console.log(data[0].Details.public_key);
+		// console.log('All users: ' + $scope.userList);
+		// console.log(JSON.parse(data[0].Details.profile));
+		// console.log(data[0].Details.public_key);
 	})
 
 	$scope.viewProfile = function(e) {
 		if (e.which === 13) {
-			alert($scope.selectedProfile);
+			var url = $scope.selectedProfile;
+			appFactory.viewProfile(url, function(data){
+				console.log(data)
+			})
 		}
 	}
 
@@ -456,9 +649,23 @@ app.controller('requestController', function($scope, $window, appFactory){
     }
 });
 
-app.factory('appFactory', function($http){
+app.factory('appFactory', function($http, $window){
     
 	var factory = {};
+	var current_user = 0;
+
+	factory.getAllOrgs = function(callback){
+		var org = sessionStorage.getItem("organization");
+		$http.get('/get_all_orgs/'+org).success(function(output) {
+			callback(output)
+		});
+	}
+
+	factory.viewProfile = function(id, callback){
+		current_user = id;
+		$window.location.href = "./profile-list.html#?id=" + id;
+		callback(current_user);
+	}
 	
 	factory.getAllUsers = function(callback){
 		var org = sessionStorage.getItem("organization");
@@ -550,4 +757,5 @@ app.factory('appFactory', function($http){
     return factory;
 
 });
+
 
