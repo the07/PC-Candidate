@@ -10,6 +10,8 @@ var path          = require('path');
 var util          = require('util');
 var os            = require('os');
 
+const uuid4 = require('uuid/v4');
+
 const basePath = path.resolve(__dirname, './certs');
 const readCryptoFile = filename => fs.readFileSync(path.resolve(basePath, filename)).toString();
 
@@ -367,7 +369,7 @@ module.exports = (function() {
 
         tx_id = fabric_client.newTransactionID();
         console.log("Assigning transaction id: ", tx_id._transaction_id);
-        var id = array[1];
+        var id = (Math.floor((Math.random() * 100000) + 1)).toString();  
         var pubkey = array[2];
         var privkey = array[3];
         var orgkey = array[4];

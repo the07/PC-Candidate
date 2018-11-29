@@ -47,7 +47,7 @@ type CompanyRecord struct {
 type user struct {
 	PublicKey string `json:"public_key"`
 	Username string `json:"username"`
-	Password string `json:"password:`
+	Password string `json:"password"`
 	RecordIndex []Record `json:"record"`
 	Profile string `json:"profile"`
 }

@@ -109,6 +109,7 @@ app.controller('basicInfoController', function($scope, $window, appFactory) {
 app.controller('userProfileController', function($scope, $location, appFactory) {
 
 	$scope.requestRecord = function(index) {
+		console.log("Index of the requested record: " + index);
 		appFactory.requestAccess(index, function(data){
 			console.log(data);
 			alert(data);
@@ -176,19 +177,21 @@ app.controller('userProfileController', function($scope, $location, appFactory) 
 					var array = [];
 					var pro_array = [];
 					appFactory.queryAllRecord(function(data) {
-						console.log("Querying: " + data);
+						console.log("Querying: " + JSON.stringify(data));
 						for (var i=0; i < data.length; i++) {
 							console.log("Looking for profile" + id)
 							if (data[i].Record.user == id) {
 								console.log("Reached here")
 								var record = {};
 								var record_data = JSON.parse(data[i].Record.data);
+								record_data.index = data[i].Key;
 								for (var j = 0; j < $scope.allOrgs.length; j++) {
 									if ($scope.allOrgs[j].key == record_data.institute) {
 										record.org = $scope.allOrgs[j].fullName;
 									}
-								}
-								console.log("official" + record_data);
+								}	
+								console.log("official" + JSON.stringify(record_data));
+								
 								console.log(data[i].Record.organization + " " +  $scope.publicKey)
 								if (data[i].Record.organization == $scope.publicKey) {
 									if (record_data.type == 1) {
